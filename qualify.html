@@ -263,7 +263,7 @@
   <h1>Let's see if we're a fit.</h1>
   <p class="subtitle">Answer a few quick questions — takes 2 minutes. Then pick a time for a free walkthrough.</p>
 
-  <form id="qualify-form" action="/submit" method="POST">
+  <form id="qualify-form" action="https://vcr-member-session-lawyers.trycloudflare.com/submit" method="POST">
     <!-- About You -->
     <fieldset>
       <legend>About You</legend>
@@ -439,7 +439,7 @@
     if (hasError) return;
 
     // Submit form via fetch, then show Calendly
-    fetch('/submit', {
+    fetch('https://vcr-member-session-lawyers.trycloudflare.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(new FormData(form)).toString()
