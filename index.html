@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CleanWorks Solutions — Phoenix Commercial Cleaning</title>
+  <meta name="description" content="Phoenix commercial cleaning — offices, clinics, law firms, schools. Dedicated crews, flat-rate pricing, honest contracts.">
+  <style>
+    :root {
+      --blue: #1a56db;
+      --blue-dark: #1e40af;
+      --blue-light: #eff6ff;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      color: var(--gray-900);
+    }
+    .logo span { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue);
+      color: white;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); }
+
+    /* ─── HERO ─── */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+      max-width: 460px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-outline {
+      border: 2px solid var(--gray-100);
+      color: var(--gray-800);
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      background: white;
+      transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gray-600); }
+
+    .hero-visual {
+      background: var(--blue-light);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      font-size: 6rem;
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--gray-50);
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+    .stat h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue);
+    }
+    .stat p { color: var(--gray-600); font-size: 0.95rem; margin-top: 0.25rem; }
+
+    /* ─── SERVICES ─── */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--gray-50);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--gray-100);
+      transition: box-shadow 0.2s;
+    }
+    .service-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .service-card h4 { font-weight: 700; margin-bottom: 0.5rem; }
+    .service-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+    /* ─── PROMISE ─── */
+    .promise { background: var(--gray-900); color: white; margin: 0; max-width: none; }
+    .promise .section-sub { color: #9ca3af; }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .promise-item h4 { color: var(--blue); font-weight: 700; margin-bottom: 0.5rem; }
+    .promise-item p { color: #d1d5db; font-size: 0.95rem; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      text-align: center;
+      background: var(--blue-light);
+      border-radius: 16px;
+      padding: 4rem 2rem;
+      margin: 0 2rem 5rem;
+      max-width: 800px;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .cta-section p { color: var(--gray-600); margin-bottom: 2rem; font-size: 1.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+      .hero h1 { font-size: 2.25rem; }
+      .hero p { max-width: 100%; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { display: none; }
+      .stats-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Clean<span>Works</span></div>
+  <a href="tel:+16025166133" class="nav-cta">📞 Call Now</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <h1>Cleaning that <span>actually</span> gets done right.</h1>
+    <p>Phoenix commercial cleaning for offices, clinics, law firms, and schools. Dedicated crew. Flat pricing. Honest contract.</p>
+    <div class="hero-buttons">
+      <a href="tel:+16025166133" class="btn-primary">📞 (602) 516-6133</a>
+      <a href="qualify.html" class="btn-outline">Get a Quote →</a>
+    </div>
+  </div>
+  <div class="hero-visual">🧹✨</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><h3>Phoenix</h3><p>Metro Based</p></div>
+    <div class="stat"><h3>Dedicated</h3><p>Crew Per Client</p></div>
+    <div class="stat"><h3>Flat-Rate</h3><p>No Surprises</p></div>
+    <div class="stat"><h3>100%</h3><p>Satisfaction Guarantee</p></div>
+  </div>
+</div>
+
+<section>
+  <h2 class="section-title">We clean so you don't have to think about it.</h2>
+  <p class="section-sub">Same crew every visit. They learn your space, know what needs extra attention, and treat it like theirs.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h4>Offices</h4>
+      <p>Open floor plans, private offices, conference rooms — your team walks into clean every morning.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚖️</div>
+      <h4>Law Firms</h4>
+      <p>Confidential, detail-oriented, and always professional. Your clients judge by what they see.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏥</div>
+      <h4>Clinics & Medical</h4>
+      <p>HIPAA-aware, sanitization-focused. Waiting rooms, exam rooms, admin areas.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏫</div>
+      <h4>Schools</h4>
+      <p>Classrooms, admin offices, common areas — safe, thorough, consistent.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏦</div>
+      <h4>Insurance Agencies</h4>
+      <p>Clean lobby, clean office, clean impression. Your clients notice.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h4>Commercial Facilities</h4>
+      <p>Industrial spaces, retail, warehouses — we handle spaces of any size.</p>
+    </div>
+  </div>
+</section>
+
+<section class="promise">
+  <h2 class="section-title">The CleanWorks difference.</h2>
+  <p class="section-sub">Most cleaning companies cut corners. We built our reputation on not doing that.</p>
+  <div class="promise-grid" style="max-width:1200px;margin:3rem auto 0;">
+    <div class="promise-item">
+      <h4>→ Same crew, every visit</h4>
+      <p>No randoms. Your crew learns your building, your preferences, and what "done right" means to you.</p>
+    </div>
+    <div class="promise-item">
+      <h4>→ Flat-rate pricing</h4>
+      <p>Your contract says exactly what you pay. No "mystery increases" or hidden fees. Ever.</p>
+    </div>
+    <div class="promise-item">
+      <h4>→ Satisfaction guaranteed</h4>
+      <p>If something isn't right, we come back and fix it. No arguing, no excuses — just done.</p>
+    </div>
+    <div class="promise-item">
+      <h4>→ Locally owned & operated</h4>
+      <p>Based right here in Phoenix. When you call, you get us — not a call center in another state.</p>
+    </div>
+  </div>
+</section>
+
+<section style="text-align:center;">
+  <div class="cta-section" style="margin:0 auto;">
+    <h2>Ready for cleaning you don't have to double-check?</h2>
+    <p>15-minute walkthrough. No obligation. If we're not the right fit, we'll tell you honestly.</p>
+    <div class="hero-buttons" style="justify-content:center;">
+      <a href="tel:+16025166133" class="btn-primary">📞 Call Now — (602) 516-6133</a>
+      <a href="qualify.html" class="btn-outline">Schedule Walkthrough →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  CleanWorks Solutions LLC &copy; 2026 &nbsp;·&nbsp; Phoenix, AZ &nbsp;·&nbsp; Commercial Cleaning &nbsp;·&nbsp; (602) 516-6133 &nbsp;·&nbsp; <a href="https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9" style="color:#1a56db;">📍 Google Maps</a>
+</footer>
+
+</body>
+</html>

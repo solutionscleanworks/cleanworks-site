@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get a Quote — CleanWorks Solutions</title>
+  <style>
+    :root {
+      --blue: #1a56db;
+      --blue-dark: #1e40af;
+      --blue-light: #eff6ff;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --red: #dc2626;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900);
+      line-height: 1.6;
+      background: var(--gray-50);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .brand .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+    .brand .logo span { color: var(--blue); }
+    .brand .tagline {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .subtitle {
+      color: var(--gray-600);
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    fieldset {
+      border: none;
+      margin-bottom: 2rem;
+    }
+    legend {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+      color: var(--gray-900);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+      color: var(--gray-800);
+    }
+    label .hint {
+      font-weight: 400;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+      background: white;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 400;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .radio-group label:hover { border-color: var(--blue); }
+    .radio-group input[type="radio"]:checked + span { font-weight: 600; color: var(--blue); }
+    .radio-group label:has(input:checked) {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+    .radio-group input[type="radio"] { accent-color: var(--blue); }
+
+    .inline-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--red);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 1rem;
+    }
+    button[type="submit"]:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+    }
+    button[type="submit"]:disabled {
+      background: var(--gray-400);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+      border-color: var(--red);
+    }
+    .form-group.error .error-msg { display: block; }
+
+    .success-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .success-overlay.show { display: flex; }
+    .success-card {
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 420px;
+      margin: 1rem;
+    }
+    .success-card .check { font-size: 3rem; margin-bottom: 1rem; }
+    .success-card h2 { margin-bottom: 0.75rem; }
+    .success-card p { color: var(--gray-600); margin-bottom: 1.5rem; }
+    .success-card .btn-primary {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .success-card .btn-primary:hover { background: var(--blue-dark); }
+    .success-card .btn-ghost {
+      display: block;
+      margin-top: 1rem;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .calendly-hint {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--blue-light);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1rem 1rem 3rem; }
+      form { padding: 1.5rem; }
+      .inline-group { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="brand">
+    <div class="logo">Clean<span>Works</span></div>
+    <div class="tagline">Phoenix Commercial Cleaning &nbsp;·&nbsp; <a href="tel:+16025166133" style="color:#1a56db;">(602) 516-6133</a></div>
+  </div>
+
+  <h1>Let's see if we're a fit.</h1>
+  <p class="subtitle">Answer a few quick questions — takes 2 minutes. Then pick a time for a free walkthrough.</p>
+
+  <form id="qualify-form" action="/submit" method="POST">
+    <!-- About You -->
+    <fieldset>
+      <legend>About You</legend>
+      <div class="form-group">
+        <label class="required" for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="John Smith">
+        <div class="error-msg">Please enter your name.</div>
+      </div>
+      <div class="inline-group">
+        <div class="form-group">
+          <label class="required" for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required placeholder="(602) 555-0123">
+          <div class="error-msg">Please enter a valid phone.</div>
+        </div>
+        <div class="form-group">
+          <label class="required" for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@company.com">
+          <div class="error-msg">Please enter a valid email.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="required" for="company">Company / Organization Name</label>
+        <input type="text" id="company" name="company" required placeholder="Acme Corp">
+        <div class="error-msg">Please enter your company name.</div>
+      </div>
+    </fieldset>
+
+    <!-- Facility -->
+    <fieldset>
+      <legend>Your Facility</legend>
+      <div class="form-group">
+        <label class="required" for="address">Facility Address</label>
+        <input type="text" id="address" name="address" required placeholder="123 Main St, Phoenix, AZ 85001">
+        <div class="error-msg">Please enter the facility address.</div>
+      </div>
+      <div class="form-group">
+        <label class="required">Type of Facility</label>
+        <div class="radio-group">
+          <label><input type="radio" name="facility_type" value="office" required> <span>Office</span></label>
+          <label><input type="radio" name="facility_type" value="medical"> <span>Medical / Clinic</span></label>
+          <label><input type="radio" name="facility_type" value="law_firm"> <span>Law Firm</span></label>
+          <label><input type="radio" name="facility_type" value="school"> <span>School / Education</span></label>
+          <label><input type="radio" name="facility_type" value="insurance"> <span>Insurance Agency</span></label>
+          <label><input type="radio" name="facility_type" value="retail"> <span>Retail / Commercial</span></label>
+          <label><input type="radio" name="facility_type" value="other"> <span>Other</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="required" for="sqft">Approximate Square Footage</label>
+        <select id="sqft" name="sqft" required>
+          <option value="">Select size range...</option>
+          <option value="under_2000">Under 2,000 sq ft</option>
+          <option value="2000_5000">2,000 – 5,000 sq ft</option>
+          <option value="5000_10000">5,000 – 10,000 sq ft</option>
+          <option value="10000_25000">10,000 – 25,000 sq ft</option>
+          <option value="25000_plus">25,000+ sq ft</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="employees">Approximate Number of Employees / Occupants</label>
+        <input type="text" id="employees" name="employees" placeholder="e.g. 25, 100, 200+">
+      </div>
+    </fieldset>
+
+    <!-- Current Situation -->
+    <fieldset>
+      <legend>Current Cleaning Situation</legend>
+      <div class="form-group">
+        <label class="required">Do you currently have a cleaning service?</label>
+        <div class="radio-group" id="has-cleaner-group">
+          <label><input type="radio" name="has_cleaner" value="yes" required> <span>Yes</span></label>
+          <label><input type="radio" name="has_cleaner" value="no"> <span>No</span></label>
+        </div>
+      </div>
+      <div class="form-group" id="current-company-group" style="display:none;">
+        <label for="current_company">Current Cleaning Company (if known)</label>
+        <input type="text" id="current_company" name="current_company" placeholder="Company name">
+      </div>
+      <div class="form-group">
+        <label class="required">How often do you need cleaning?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="frequency" value="daily" required> <span>Daily</span></label>
+          <label><input type="radio" name="frequency" value="3x_week"> <span>3x / Week</span></label>
+          <label><input type="radio" name="frequency" value="2x_week"> <span>2x / Week</span></label>
+          <label><input type="radio" name="frequency" value="weekly"> <span>Weekly</span></label>
+          <label><input type="radio" name="frequency" value="biweekly"> <span>Every 2 Weeks</span></label>
+          <label><input type="radio" name="frequency" value="one_time"> <span>One-Time / Deep Clean</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="required">What's most important to you in a cleaning service?</label>
+        <select id="priority" name="priority" required>
+          <option value="">Select the top priority...</option>
+          <option value="reliability">Reliability — show up when they say they will</option>
+          <option value="quality">Quality — actually clean, not just surface-level</option>
+          <option value="price">Price — competitive, transparent pricing</option>
+          <option value="consistency">Consistency — same crew, same quality every time</option>
+          <option value="trust">Trust — people I can give keys to</option>
+          <option value="communication">Communication — quick responses, no ghosting</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="pain_points">Anything you're unhappy about with your current setup? <span class="hint">(optional)</span></label>
+        <textarea id="pain_points" name="pain_points" placeholder="E.g. crew keeps changing, price keeps going up, they miss spots, hard to reach someone, etc."></textarea>
+      </div>
+    </fieldset>
+
+    <!-- Logistics -->
+    <fieldset>
+      <legend>Quick Logistics</legend>
+      <div class="form-group">
+        <label class="required">Best time of day for cleaning?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="cleaning_time" value="morning" required> <span>Morning (before 9AM)</span></label>
+          <label><input type="radio" name="cleaning_time" value="daytime"> <span>During Business Hours</span></label>
+          <label><input type="radio" name="cleaning_time" value="evening"> <span>Evening (after 5PM)</span></label>
+          <label><input type="radio" name="cleaning_time" value="night"> <span>Overnight</span></label>
+          <label><input type="radio" name="cleaning_time" value="flexible"> <span>Flexible</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Any special requirements? <span class="hint">(optional)</span></label>
+        <textarea id="special_requirements" name="special_requirements" placeholder="E.g. security clearance, COVID protocols, green cleaning products, floor stripping/waxing, etc."></textarea>
+      </div>
+    </fieldset>
+
+    <button type="submit">Submit & Schedule Walkthrough →</button>
+
+    <div class="calendly-hint">
+      After you submit, you'll be taken to our calendar to pick a 15-minute walkthrough slot.<br>
+      <a href="https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9" target="_blank" style="color:#1a56db;">📍 View on Google Maps</a>
+    </div>
+  </form>
+</div>
+
+<!-- Success Modal -->
+<div class="success-overlay" id="success-modal">
+  <div class="success-card">
+    <div class="check">✅</div>
+    <h2>Got it!</h2>
+    <p>Now pick a time for your free walkthrough — 15 minutes, no obligation.</p>
+    <a href="https://calendly.com/solutionscleanworks/walk-through" target="_blank" class="btn-primary">Schedule on Calendly →</a>
+    <a href="#" onclick="document.getElementById('success-modal').classList.remove('show')" class="btn-ghost">← Close</a>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[name="has_cleaner"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.getElementById('current-company-group').style.display = radio.value === 'yes' ? 'block' : 'none';
+    });
+  });
+
+  const form = document.getElementById('qualify-form');
+  const successModal = document.getElementById('success-modal');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let hasError = false;
+    form.querySelectorAll('.form-group.error').forEach(g => g.classList.remove('error'));
+
+    form.querySelectorAll('[required]').forEach(field => {
+      const group = field.closest('.form-group');
+      if (!group) return;
+      if (field.type === 'radio') {
+        const checked = form.querySelector('input[name="' + field.name + '"]:checked');
+        if (!checked) { group.classList.add('error'); hasError = true; }
+        return;
+      }
+      if (!field.value.trim()) { group.classList.add('error'); hasError = true; }
+    });
+
+    if (hasError) return;
+
+    // Submit form via fetch, then show Calendly
+    fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(() => {
+      successModal.classList.add('show');
+    }).catch(() => {
+      successModal.classList.add('show');
+    });
+  });
+
+  successModal.addEventListener('click', function(e) {
+    if (e.target === successModal) successModal.classList.remove('show');
+  });
+</script>
+
+</body>
+</html>
