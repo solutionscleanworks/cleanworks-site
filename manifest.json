@@ -1,0 +1,21 @@
+{
+  "name": "CleanWorks Pricing",
+  "short_name": "CW Pricing",
+  "description": "Commercial cleaning pricing calculator — monthly, wax, carpet, and more",
+  "start_url": "pricing.html",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#479202",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

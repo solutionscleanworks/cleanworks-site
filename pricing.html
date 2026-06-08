@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache, must-revalidate">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CW Pricing">
   <title>CleanWorks — Pricing Calculator</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,6 +18,7 @@
       color: #1f2937;
       min-height: 100vh;
       padding: 16px;
+      padding-bottom: 40px;
     }
     .container {
       max-width: 480px;
@@ -33,6 +38,11 @@
       font-size: 0.85rem;
       color: #6b7280;
       margin-top: 4px;
+    }
+    .header .install-note {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: #9ca3af;
     }
     .card {
       background: white;
@@ -121,7 +131,7 @@
     .result-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       padding: 14px 0;
       border-bottom: 1px solid #f3f4f6;
     }
@@ -146,16 +156,11 @@
       margin-left: 12px;
     }
     .result-item .price .freq {
-      font-size: 0.72rem;
+      display: block;
+      font-size: 0.7rem;
       font-weight: 400;
       color: #9ca3af;
-    }
-    .result-item .price .strike {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 400;
-      color: #d1d5db;
-      text-decoration: line-through;
+      text-align: right;
     }
     .total-box {
       background: #f0f7eb;
@@ -262,16 +267,6 @@
       display: none;
     }
     .note.show { display: block; }
-    .pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      margin-left: 6px;
-    }
-    .pill.recommended { background: #dbeafe; color: #1d4ed8; }
-    .pill.premium { background: #fef3c7; color: #92400e; }
     .summary-line {
       font-size: 0.82rem;
       color: #6b7280;
@@ -285,10 +280,11 @@
     <div class="header">
       <h1>🧹 CleanWorks Solutions</h1>
       <p>Commercial Cleaning · Pricing Calculator</p>
+      <div class="install-note">📲 Tap Share → Add to Home Screen to use as app</div>
     </div>
 
     <div class="card">
-      <h2>1. Tell Us About the Space</h2>
+      <h2>1. Space Details</h2>
 
       <div class="form-group">
         <label for="sqft">Square Footage</label>
@@ -313,7 +309,7 @@
       <div class="form-group">
         <label for="frequency">Cleaning Frequency</label>
         <select id="frequency">
-          <option value="5">5x / week — Daily (most common)</option>
+          <option value="5">5x / week — Daily</option>
           <option value="3">3x / week — Standard</option>
           <option value="2">2x / week — Light</option>
           <option value="1">1x / week — Weekly</option>
@@ -324,38 +320,38 @@
         <label for="hours">Cleaning Time</label>
         <select id="hours">
           <option value="regular">During business hours</option>
-          <option value="after">After hours / Early morning</option>
+          <option value="after">After hours / Early morning (+25%)</option>
         </select>
       </div>
     </div>
 
     <div class="card">
-      <h2>2. Select Services</h2>
+      <h2>2. Services</h2>
       <div class="service-toggles" id="services">
         <div class="service-btn active" data-svc="janitorial" onclick="toggleSvc(this)">🧹 Daily Cleaning</div>
         <div class="service-btn" data-svc="wax" onclick="toggleSvc(this)">✨ Strip & Wax</div>
-        <div class="service-btn" data-svc="carpet" onclick="toggleSvc(this)">🧺 Carpet Cleaning</div>
-        <div class="service-btn" data-svc="windows" onclick="toggleSvc(this)">🪟 Window Cleaning</div>
+        <div class="service-btn" data-svc="carpet" onclick="toggleSvc(this)">🧺 Carpet Wash</div>
+        <div class="service-btn" data-svc="windows" onclick="toggleSvc(this)">🪟 Windows</div>
         <div class="service-btn" data-svc="deep" onclick="toggleSvc(this)">🔬 Deep Clean</div>
         <div class="service-btn" data-svc="move" onclick="toggleSvc(this)">📦 Move In/Out</div>
       </div>
 
-      <button class="btn btn-primary" onclick="calculate()" style="margin-top:16px;">Calculate Price</button>
+      <button class="btn btn-primary" onclick="calculate()" style="margin-top:16px;">Get Price →</button>
     </div>
 
     <div class="results" id="results">
       <div class="card">
-        <h2>3. Your Estimate</h2>
+        <h2>Estimate</h2>
         <div id="estimateItems"></div>
         <div class="total-box" id="totalBox">
-          <span class="label">Estimated Total</span>
+          <span class="label">Total</span>
           <span class="price" id="totalPrice">$0</span>
         </div>
         <div class="summary-line" id="summaryLine"></div>
         <div class="note" id="note"></div>
         <div class="disclaimer">
-          This is an estimate. Final pricing depends on site walkthrough.<br>
-          Call <strong>(602) 516-6133</strong> or email <strong>cleanworks.solutions1@gmail.com</strong>
+          Estimate only. Final price after site walkthrough.<br>
+          📞 <strong>(602) 516-6133</strong>
         </div>
       </div>
     </div>
@@ -374,7 +370,7 @@
         </div>
         <div class="row">
           <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.001" value="0.065"></div>
-          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.001" value="0.070"></div>
+          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.001" value="0.095"></div>
         </div>
         <div class="row">
           <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.001" value="0.055"></div>
@@ -384,16 +380,16 @@
         <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
         <div class="form-group"><input type="number" id="afterHoursPrem" step="0.01" value="1.25" style="width:100px;"></div>
 
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services</div>
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services (per sq ft)</div>
         <div class="row">
-          <div class="form-group"><label>Strip & Wax / sq ft</label><input type="number" id="rWax" step="0.01" value="0.30"></div>
-          <div class="form-group"><label>Carpet cleaning / sq ft</label><input type="number" id="rCarpet" step="0.01" value="0.20"></div>
+          <div class="form-group"><label>Strip &amp; Wax</label><input type="number" id="rWax" step="0.01" value="0.30"></div>
+          <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.20"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>Window cleaning / sq ft</label><input type="number" id="rWindows" step="0.01" value="0.08"></div>
-          <div class="form-group"><label>Deep clean / sq ft</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
+          <div class="form-group"><label>Windows</label><input type="number" id="rWindows" step="0.01" value="0.08"></div>
+          <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
         </div>
-        <div class="form-group"><label>Move in/out flat fee</label><input type="number" id="rMove" step="10" value="500"></div>
+        <div class="form-group"><label>Move In/Out (flat fee)</label><input type="number" id="rMove" step="10" value="500"></div>
 
         <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
         <div class="row">
@@ -405,7 +401,7 @@
     </div>
 
     <div class="footer">
-      <a href="https://solutionscleanworks.github.io/cleanworks-site/">← Back to CleanWorks site</a>
+      <a href="https://solutionscleanworks.github.io/cleanworks-site/">← CleanWorks Site</a>
     </div>
   </div>
 
@@ -422,7 +418,6 @@
     function toggleSvc(el) {
       const svc = el.dataset.svc;
       if (svc === 'janitorial') {
-        // Janitorial always on
         el.classList.add('active');
         activeServices.add('janitorial');
         return;
@@ -441,7 +436,7 @@
         office:   parseFloat(document.getElementById('rOffice').value) || 0.060,
         medical:  parseFloat(document.getElementById('rMedical').value) || 0.085,
         school:   parseFloat(document.getElementById('rSchool').value) || 0.065,
-        retail:   parseFloat(document.getElementById('rRetail').value) || 0.070,
+        retail:   parseFloat(document.getElementById('rRetail').value) || 0.095,
         industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.055,
         other:    parseFloat(document.getElementById('rOther').value) || 0.065,
       };
@@ -476,7 +471,7 @@
 
       if (!sqft || sqft < 100) {
         res.classList.add('show');
-        event.innerHTML = '<div class="placeholder">Enter square footage to see pricing</div>';
+        event.innerHTML = '<div class="placeholder">Enter square footage</div>';
         totalEl.textContent = '$0';
         summary.textContent = '';
         note.classList.remove('show');
@@ -488,10 +483,9 @@
       const discXLarge = parseFloat(document.getElementById('discXLarge').value) || 0.90;
       let volumeNote = '';
 
-      // Volume discount
       let volMult = 1;
-      if (sqft >= 25000) { volMult = discXLarge; volumeNote = '(25K+ sq ft volume discount applied)'; }
-      else if (sqft >= 10000) { volMult = discLarge; volumeNote = '(10K+ sq ft volume discount applied)'; }
+      if (sqft >= 25000) { volMult = discXLarge; volumeNote = '(25K+ vol. discount)'; }
+      else if (sqft >= 10000) { volMult = discLarge; volumeNote = '(10K+ vol. discount)'; }
 
       let items = [];
       let grandTotal = 0;
@@ -499,26 +493,25 @@
       // Monthly janitorial
       if (activeServices.has('janitorial')) {
         let monthly = sqft * baseRate * volMult;
-        let label = 'Monthly cleaning — ' + bizLabel + ', ' + freq + 'x/week';
+        let label = 'Daily cleaning — ' + bizLabel + ', ' + freq + 'x/wk';
         if (isAfterHours) {
           monthly *= afterPrem;
-          label += ' after hours';
+          label += ' after hrs';
         }
         const display = Math.round(monthly);
         grandTotal += display;
         items.push({
           label: label,
-          sub: Math.round(sqft * baseRate * volMult).toLocaleString() + ' /mo' + (isAfterHours ? ' × ' + afterPrem.toFixed(2) + ' premium' : ''),
-          price: formatPrice(display) + ' <span class="freq">/mo</span>'
+          sub: '$' + (sqft * baseRate * volMult).toFixed(2) + '/mo' + (isAfterHours ? ' × ' + afterPrem.toFixed(2) + ' after-hrs prem' : ''),
+          price: formatPrice(display) + ' <span class="freq">/month</span>'
         });
       }
 
-      // One-time services
       const svcs = {
-        wax: { rateId: 'rWax', name: 'Strip & Wax', suffix: '' },
-        carpet: { rateId: 'rCarpet', name: 'Carpet Cleaning', suffix: '' },
-        windows: { rateId: 'rWindows', name: 'Window Cleaning', suffix: '' },
-        deep: { rateId: 'rDeep', name: 'Deep Clean', suffix: '' },
+        wax: { rateId: 'rWax', name: 'Strip & Wax' },
+        carpet: { rateId: 'rCarpet', name: 'Carpet Wash' },
+        windows: { rateId: 'rWindows', name: 'Window Cleaning' },
+        deep: { rateId: 'rDeep', name: 'Deep Clean' },
       };
 
       for (const [key, svc] of Object.entries(svcs)) {
@@ -528,13 +521,12 @@
           grandTotal += total;
           items.push({
             label: svc.name,
-            sub: (rate * 100).toFixed(1) + '¢/sq ft × ' + sqft.toLocaleString() + ' sq ft',
+            sub: sqft.toLocaleString() + ' sq ft',
             price: formatPrice(total) + ' <span class="freq">one-time</span>'
           });
         }
       }
 
-      // Move in/out
       if (activeServices.has('move')) {
         const moveFee = parseFloat(document.getElementById('rMove').value) || 500;
         grandTotal += moveFee;
@@ -556,7 +548,7 @@
       event.innerHTML = html;
 
       if (items.length === 0) {
-        event.innerHTML = '<div class="placeholder">Select at least one service</div>';
+        event.innerHTML = '<div class="placeholder">Select a service</div>';
         totalEl.textContent = '$0';
         summary.textContent = '';
         return;
@@ -564,7 +556,6 @@
 
       totalEl.textContent = formatPrice(grandTotal);
 
-      // Summary
       let summaryParts = [];
       summaryParts.push(sqft.toLocaleString() + ' sq ft');
       summaryParts.push(bizLabel);
@@ -572,15 +563,12 @@
       summaryParts.push(freq + 'x/week');
       summary.textContent = summaryParts.join(' · ') + (volumeNote ? ' · ' + volumeNote : '');
 
-      // Note for large spaces
       note.classList.remove('show');
       if (sqft >= 10000) {
-        note.innerHTML = '📞 Large facility — call (602) 516-6133 for a custom walkthrough and volume pricing.';
+        note.innerHTML = '📞 Large space — call (602) 516-6133 for custom pricing.';
         note.classList.add('show');
       }
       res.classList.add('show');
-
-      // Scroll to results
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
