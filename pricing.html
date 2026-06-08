@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CleanWorks — Pricing Calculator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f7fa;
+      color: #1f2937;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0 16px;
+    }
+    .header h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #479202;
+      letter-spacing: -0.3px;
+    }
+    .header p {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      margin-bottom: 16px;
+    }
+    .card h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #4b5563;
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      background: white;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #479202;
+      box-shadow: 0 0 0 3px rgba(71,146,2,0.12);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+    .input-with-icon {
+      position: relative;
+    }
+    .input-with-icon .suffix {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 0.85rem;
+      font-weight: 500;
+      pointer-events: none;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: #479202;
+      color: white;
+    }
+    .btn-primary:active {
+      background: #3a7a02;
+      transform: scale(0.98);
+    }
+    .results {
+      display: none;
+    }
+    .results.show {
+      display: block;
+    }
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    .result-item .label {
+      font-size: 0.9rem;
+      color: #374151;
+    }
+    .result-item .label .sub {
+      display: block;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+    .result-item .price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    .result-item .price .freq {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #9ca3af;
+    }
+    .disclaimer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      padding-top: 12px;
+      line-height: 1.5;
+    }
+    .placeholder {
+      text-align: center;
+      padding: 20px 0;
+      color: #9ca3af;
+      font-size: 0.85rem;
+    }
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #6b7280;
+    }
+    .toggle-btn.active {
+      border-color: #479202;
+      background: #f0f7eb;
+      color: #479202;
+      font-weight: 600;
+    }
+    .footer {
+      text-align: center;
+      padding: 12px 0 24px;
+    }
+    .footer a {
+      color: #479202;
+      font-size: 0.82rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .note {
+      margin-top: 12px;
+      padding: 12px;
+      background: #fefce8;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #92400e;
+      line-height: 1.5;
+      display: none;
+    }
+    .note.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧹 CleanWorks Solutions</h1>
+      <p>Commercial Cleaning · Pricing Calculator</p>
+    </div>
+
+    <div class="card">
+      <h2>Calculate Price</h2>
+
+      <div class="form-group">
+        <label for="sqft">Square Footage</label>
+        <div class="input-with-icon">
+          <input type="number" id="sqft" inputmode="numeric" placeholder="e.g. 2500">
+          <span class="suffix">sq ft</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Flooring</label>
+        <div class="row">
+          <div class="toggle-btn active" data-floor="office" onclick="setFloor(this, 'office')">Carpet / Office</div>
+          <div class="toggle-btn" data-floor="hard" onclick="setFloor(this, 'hard')">Hard Surface</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="calculate()">Calculate Price</button>
+
+      <div class="results" id="results">
+        <div style="margin-top: 20px; border-top: 1px solid #e5e7eb; padding-top: 16px;">
+          <div class="result-item">
+            <div>
+              <span class="label">Monthly Cleaning</span>
+              <span class="sub">5x/week standard service</span>
+            </div>
+            <div class="price" id="monthlyPrice">—</div>
+          </div>
+          <div class="result-item">
+            <div>
+              <span class="label">Strip & Wax</span>
+              <span class="sub">One-time floor restoration</span>
+            </div>
+            <div class="price" id="waxPrice">—</div>
+          </div>
+        </div>
+        <div class="placeholder" id="placeholder">Enter square footage to see pricing</div>
+        <div class="note" id="note"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 16px 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size:0.82rem; color:#6b7280;">Adjust rates</span>
+        <span id="editToggle" style="color:#479202; font-size:0.82rem; font-weight:500; cursor:pointer;" onclick="toggleRates()">Edit</span>
+      </div>
+      <div id="rateEditor" style="display:none; margin-top:12px;">
+        <div class="row">
+          <div class="form-group" style="margin-bottom:8px;">
+            <label style="font-size:0.75rem;">Carpet / sq ft</label>
+            <input type="number" id="rateCarpet" step="0.001" value="0.060">
+          </div>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label style="font-size:0.75rem;">Hard / sq ft</label>
+            <input type="number" id="rateHard" step="0.001" value="0.075">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" style="margin-bottom:8px;">
+            <label style="font-size:0.75rem;">Wax carpet / sq ft</label>
+            <input type="number" id="waxCarpet" step="0.01" value="0.25">
+          </div>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label style="font-size:0.75rem;">Wax hard / sq ft</label>
+            <input type="number" id="waxHard" step="0.01" value="0.35">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="https://solutionscleanworks.github.io/cleanworks-site/">← Back to CleanWorks site</a>
+    </div>
+  </div>
+
+  <script>
+    let selectedFloor = 'office';
+
+    function setFloor(el, type) {
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedFloor = type;
+    }
+
+    function getRates() {
+      return {
+        monthly: selectedFloor === 'office'
+          ? parseFloat(document.getElementById('rateCarpet').value) || 0.06
+          : parseFloat(document.getElementById('rateHard').value) || 0.075,
+        wax: selectedFloor === 'office'
+          ? parseFloat(document.getElementById('waxCarpet').value) || 0.25
+          : parseFloat(document.getElementById('waxHard').value) || 0.35,
+        label: selectedFloor === 'office' ? 'Carpet / Office' : 'Hard Surface'
+      };
+    }
+
+    function calculate() {
+      const sqft = parseFloat(document.getElementById('sqft').value);
+      const el = document.getElementById('results');
+      const monthlyEl = document.getElementById('monthlyPrice');
+      const waxEl = document.getElementById('waxPrice');
+      const placeholder = document.getElementById('placeholder');
+      const note = document.getElementById('note');
+
+      if (!sqft || sqft < 100) {
+        el.classList.add('show');
+        placeholder.style.display = 'block';
+        monthlyEl.textContent = '—';
+        waxEl.textContent = '—';
+        note.classList.remove('show');
+        return;
+      }
+
+      const rates = getRates();
+      const monthly = Math.round(sqft * rates.monthly);
+      const wax = Math.round(sqft * rates.wax);
+
+      el.classList.add('show');
+      placeholder.style.display = 'none';
+      monthlyEl.textContent = '$' + monthly.toLocaleString() + ' <span class="freq">/mo</span>';
+      monthlyEl.innerHTML = '$' + monthly.toLocaleString() + ' <span class="freq">/mo</span>';
+      waxEl.textContent = '$' + wax.toLocaleString();
+      note.classList.remove('show');
+
+      // Show info note for large spaces
+      if (sqft >= 10000) {
+        note.innerHTML = 'Large facility — ask about volume pricing. Call (602) 516-6133.';
+        note.classList.add('show');
+      }
+    }
+
+    function toggleRates() {
+      const editor = document.getElementById('rateEditor');
+      const toggle = document.getElementById('editToggle');
+      if (editor.style.display === 'none') {
+        editor.style.display = 'block';
+        toggle.textContent = 'Done';
+      } else {
+        editor.style.display = 'none';
+        toggle.textContent = 'Edit';
+        calculate();
+      }
+    }
+
+    // Calculate on Enter
+    document.getElementById('sqft').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') calculate();
+    });
+  </script>
+</body>
+</html>
