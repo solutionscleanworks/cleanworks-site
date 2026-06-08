@@ -104,6 +104,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.15s;
+      text-align: center;
     }
     .btn-primary {
       background: #479202;
@@ -113,12 +114,8 @@
       background: #3a7a02;
       transform: scale(0.98);
     }
-    .results {
-      display: none;
-    }
-    .results.show {
-      display: block;
-    }
+    .results { display: none; }
+    .results.show { display: block; }
     .result-item {
       display: flex;
       justify-content: space-between;
@@ -126,12 +123,11 @@
       padding: 14px 0;
       border-bottom: 1px solid #f3f4f6;
     }
-    .result-item:last-child {
-      border-bottom: none;
-    }
+    .result-item:last-child { border-bottom: none; }
     .result-item .label {
       font-size: 0.9rem;
       color: #374151;
+      flex: 1;
     }
     .result-item .label .sub {
       display: block;
@@ -140,14 +136,43 @@
       margin-top: 2px;
     }
     .result-item .price {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #1f2937;
+      text-align: right;
+      white-space: nowrap;
+      margin-left: 12px;
     }
     .result-item .price .freq {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 400;
       color: #9ca3af;
+    }
+    .result-item .price .strike {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #d1d5db;
+      text-decoration: line-through;
+    }
+    .total-box {
+      background: #f0f7eb;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .total-box .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    .total-box .price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #479202;
     }
     .disclaimer {
       text-align: center;
@@ -164,14 +189,15 @@
     }
     .toggle-group {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
     }
     .toggle-btn {
       flex: 1;
-      padding: 10px;
+      min-width: calc(50% - 4px);
+      padding: 10px 8px;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 500;
       border: 1.5px solid #d1d5db;
       border-radius: 8px;
@@ -196,6 +222,33 @@
       text-decoration: none;
       font-weight: 500;
     }
+    .service-toggles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .service-btn {
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1.5px solid #d1d5db;
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #6b7280;
+    }
+    .service-btn.active {
+      border-color: #479202;
+      background: #f0f7eb;
+      color: #479202;
+      font-weight: 600;
+    }
+    .rate-editor { display: none; margin-top: 12px; }
+    .rate-editor.open { display: block; }
+    .rate-editor .form-group { margin-bottom: 8px; }
+    .rate-editor label { font-size: 0.75rem; }
+    .rate-editor input { padding: 8px 10px; font-size: 0.9rem; }
     .note {
       margin-top: 12px;
       padding: 12px;
@@ -207,6 +260,22 @@
       display: none;
     }
     .note.show { display: block; }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+    .pill.recommended { background: #dbeafe; color: #1d4ed8; }
+    .pill.premium { background: #fef3c7; color: #92400e; }
+    .summary-line {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -217,7 +286,7 @@
     </div>
 
     <div class="card">
-      <h2>Calculate Price</h2>
+      <h2>1. Tell Us About the Space</h2>
 
       <div class="form-group">
         <label for="sqft">Square Footage</label>
@@ -228,63 +297,108 @@
       </div>
 
       <div class="form-group">
-        <label>Flooring</label>
-        <div class="row">
-          <div class="toggle-btn active" data-floor="office" onclick="setFloor(this, 'office')">Carpet / Office</div>
-          <div class="toggle-btn" data-floor="hard" onclick="setFloor(this, 'hard')">Hard Surface</div>
+        <label>Type of Business</label>
+        <div class="toggle-group" id="bizType">
+          <div class="toggle-btn active" data-biz="office" onclick="setBiz(this,'office')">Office</div>
+          <div class="toggle-btn" data-biz="medical" onclick="setBiz(this,'medical')">Medical</div>
+          <div class="toggle-btn" data-biz="school" onclick="setBiz(this,'school')">School</div>
+          <div class="toggle-btn" data-biz="retail" onclick="setBiz(this,'retail')">Retail</div>
+          <div class="toggle-btn" data-biz="industrial" onclick="setBiz(this,'industrial')">Industrial</div>
+          <div class="toggle-btn" data-biz="other" onclick="setBiz(this,'other')">Other</div>
         </div>
       </div>
 
-      <button class="btn btn-primary" onclick="calculate()">Calculate Price</button>
+      <div class="form-group">
+        <label for="frequency">Cleaning Frequency</label>
+        <select id="frequency">
+          <option value="5">5x / week — Daily (most common)</option>
+          <option value="3">3x / week — Standard</option>
+          <option value="2">2x / week — Light</option>
+          <option value="1">1x / week — Weekly</option>
+        </select>
+      </div>
 
-      <div class="results" id="results">
-        <div style="margin-top: 20px; border-top: 1px solid #e5e7eb; padding-top: 16px;">
-          <div class="result-item">
-            <div>
-              <span class="label">Monthly Cleaning</span>
-              <span class="sub">5x/week standard service</span>
-            </div>
-            <div class="price" id="monthlyPrice">—</div>
-          </div>
-          <div class="result-item">
-            <div>
-              <span class="label">Strip & Wax</span>
-              <span class="sub">One-time floor restoration</span>
-            </div>
-            <div class="price" id="waxPrice">—</div>
-          </div>
+      <div class="form-group">
+        <label for="hours">Cleaning Time</label>
+        <select id="hours">
+          <option value="regular">During business hours</option>
+          <option value="after">After hours / Early morning</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Select Services</h2>
+      <div class="service-toggles" id="services">
+        <div class="service-btn active" data-svc="janitorial" onclick="toggleSvc(this)">🧹 Daily Cleaning</div>
+        <div class="service-btn" data-svc="wax" onclick="toggleSvc(this)">✨ Strip & Wax</div>
+        <div class="service-btn" data-svc="carpet" onclick="toggleSvc(this)">🧺 Carpet Cleaning</div>
+        <div class="service-btn" data-svc="windows" onclick="toggleSvc(this)">🪟 Window Cleaning</div>
+        <div class="service-btn" data-svc="deep" onclick="toggleSvc(this)">🔬 Deep Clean</div>
+        <div class="service-btn" data-svc="move" onclick="toggleSvc(this)">📦 Move In/Out</div>
+      </div>
+
+      <button class="btn btn-primary" onclick="calculate()" style="margin-top:16px;">Calculate Price</button>
+    </div>
+
+    <div class="results" id="results">
+      <div class="card">
+        <h2>3. Your Estimate</h2>
+        <div id="estimateItems"></div>
+        <div class="total-box" id="totalBox">
+          <span class="label">Estimated Total</span>
+          <span class="price" id="totalPrice">$0</span>
         </div>
-        <div class="placeholder" id="placeholder">Enter square footage to see pricing</div>
+        <div class="summary-line" id="summaryLine"></div>
         <div class="note" id="note"></div>
+        <div class="disclaimer">
+          This is an estimate. Final pricing depends on site walkthrough.<br>
+          Call <strong>(602) 516-6133</strong> or email <strong>cleanworks.solutions1@gmail.com</strong>
+        </div>
       </div>
     </div>
 
     <div class="card" style="padding: 16px 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size:0.82rem; color:#6b7280;">Adjust rates</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:0.82rem; color:#6b7280;">Rate settings</span>
         <span id="editToggle" style="color:#479202; font-size:0.82rem; font-weight:500; cursor:pointer;" onclick="toggleRates()">Edit</span>
       </div>
-      <div id="rateEditor" style="display:none; margin-top:12px;">
+      <div class="rate-editor" id="rateEditor">
+
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly cleaning (per sq ft)</div>
         <div class="row">
-          <div class="form-group" style="margin-bottom:8px;">
-            <label style="font-size:0.75rem;">Carpet / sq ft</label>
-            <input type="number" id="rateCarpet" step="0.001" value="0.060">
-          </div>
-          <div class="form-group" style="margin-bottom:8px;">
-            <label style="font-size:0.75rem;">Hard / sq ft</label>
-            <input type="number" id="rateHard" step="0.001" value="0.075">
-          </div>
+          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.001" value="0.060"></div>
+          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.001" value="0.085"></div>
         </div>
         <div class="row">
-          <div class="form-group" style="margin-bottom:8px;">
-            <label style="font-size:0.75rem;">Wax carpet / sq ft</label>
-            <input type="number" id="waxCarpet" step="0.01" value="0.25">
-          </div>
-          <div class="form-group" style="margin-bottom:8px;">
-            <label style="font-size:0.75rem;">Wax hard / sq ft</label>
-            <input type="number" id="waxHard" step="0.01" value="0.35">
-          </div>
+          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.001" value="0.065"></div>
+          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.001" value="0.070"></div>
         </div>
+        <div class="row">
+          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.001" value="0.055"></div>
+          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.001" value="0.065"></div>
+        </div>
+
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
+        <div class="form-group"><input type="number" id="afterHoursPrem" step="0.01" value="1.25" style="width:100px;"></div>
+
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services</div>
+        <div class="row">
+          <div class="form-group"><label>Strip & Wax / sq ft</label><input type="number" id="rWax" step="0.01" value="0.30"></div>
+          <div class="form-group"><label>Carpet cleaning / sq ft</label><input type="number" id="rCarpet" step="0.01" value="0.20"></div>
+        </div>
+        <div class="row">
+          <div class="form-group"><label>Window cleaning / sq ft</label><input type="number" id="rWindows" step="0.01" value="0.08"></div>
+          <div class="form-group"><label>Deep clean / sq ft</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
+        </div>
+        <div class="form-group"><label>Move in/out flat fee</label><input type="number" id="rMove" step="10" value="500"></div>
+
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
+        <div class="row">
+          <div class="form-group"><label>10K+ sq ft discount</label><input type="number" id="discLarge" step="0.01" value="0.95" style="width:100px;"></div>
+          <div class="form-group"><label>25K+ sq ft discount</label><input type="number" id="discXLarge" step="0.01" value="0.90" style="width:100px;"></div>
+        </div>
+
       </div>
     </div>
 
@@ -294,75 +408,193 @@
   </div>
 
   <script>
-    let selectedFloor = 'office';
+    let selectedBiz = 'office';
+    let activeServices = new Set(['janitorial']);
 
-    function setFloor(el, type) {
-      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    function setBiz(el, type) {
+      document.querySelectorAll('#bizType .toggle-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
-      selectedFloor = type;
+      selectedBiz = type;
     }
 
-    function getRates() {
-      return {
-        monthly: selectedFloor === 'office'
-          ? parseFloat(document.getElementById('rateCarpet').value) || 0.06
-          : parseFloat(document.getElementById('rateHard').value) || 0.075,
-        wax: selectedFloor === 'office'
-          ? parseFloat(document.getElementById('waxCarpet').value) || 0.25
-          : parseFloat(document.getElementById('waxHard').value) || 0.35,
-        label: selectedFloor === 'office' ? 'Carpet / Office' : 'Hard Surface'
+    function toggleSvc(el) {
+      const svc = el.dataset.svc;
+      if (svc === 'janitorial') {
+        // Janitorial always on
+        el.classList.add('active');
+        activeServices.add('janitorial');
+        return;
+      }
+      if (activeServices.has(svc)) {
+        activeServices.delete(svc);
+        el.classList.remove('active');
+      } else {
+        activeServices.add(svc);
+        el.classList.add('active');
+      }
+    }
+
+    function getBaseRate(biz) {
+      const map = {
+        office:   parseFloat(document.getElementById('rOffice').value) || 0.060,
+        medical:  parseFloat(document.getElementById('rMedical').value) || 0.085,
+        school:   parseFloat(document.getElementById('rSchool').value) || 0.065,
+        retail:   parseFloat(document.getElementById('rRetail').value) || 0.070,
+        industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.055,
+        other:    parseFloat(document.getElementById('rOther').value) || 0.065,
       };
+      return map[biz] || 0.065;
+    }
+
+    function getBizLabel(biz) {
+      const map = {
+        office: 'Office', medical: 'Medical/Dental',
+        school: 'School/Daycare', retail: 'Retail',
+        industrial: 'Industrial/Warehouse', other: 'Other'
+      };
+      return map[biz] || biz;
+    }
+
+    function formatPrice(n) {
+      return '$' + Math.round(n).toLocaleString();
     }
 
     function calculate() {
       const sqft = parseFloat(document.getElementById('sqft').value);
-      const el = document.getElementById('results');
-      const monthlyEl = document.getElementById('monthlyPrice');
-      const waxEl = document.getElementById('waxPrice');
-      const placeholder = document.getElementById('placeholder');
+      const freq = parseInt(document.getElementById('frequency').value);
+      const isAfterHours = document.getElementById('hours').value === 'after';
+      const afterPrem = parseFloat(document.getElementById('afterHoursPrem').value) || 1.25;
+      const bizLabel = getBizLabel(selectedBiz);
+
+      const event = document.getElementById('estimateItems');
+      const totalEl = document.getElementById('totalPrice');
+      const summary = document.getElementById('summaryLine');
       const note = document.getElementById('note');
+      const res = document.getElementById('results');
 
       if (!sqft || sqft < 100) {
-        el.classList.add('show');
-        placeholder.style.display = 'block';
-        monthlyEl.textContent = '—';
-        waxEl.textContent = '—';
+        res.classList.add('show');
+        event.innerHTML = '<div class="placeholder">Enter square footage to see pricing</div>';
+        totalEl.textContent = '$0';
+        summary.textContent = '';
         note.classList.remove('show');
         return;
       }
 
-      const rates = getRates();
-      const monthly = Math.round(sqft * rates.monthly);
-      const wax = Math.round(sqft * rates.wax);
+      const baseRate = getBaseRate(selectedBiz);
+      const discLarge = parseFloat(document.getElementById('discLarge').value) || 0.95;
+      const discXLarge = parseFloat(document.getElementById('discXLarge').value) || 0.90;
+      let volumeNote = '';
 
-      el.classList.add('show');
-      placeholder.style.display = 'none';
-      monthlyEl.textContent = '$' + monthly.toLocaleString() + ' <span class="freq">/mo</span>';
-      monthlyEl.innerHTML = '$' + monthly.toLocaleString() + ' <span class="freq">/mo</span>';
-      waxEl.textContent = '$' + wax.toLocaleString();
+      // Volume discount
+      let volMult = 1;
+      if (sqft >= 25000) { volMult = discXLarge; volumeNote = '(25K+ sq ft volume discount applied)'; }
+      else if (sqft >= 10000) { volMult = discLarge; volumeNote = '(10K+ sq ft volume discount applied)'; }
+
+      let items = [];
+      let grandTotal = 0;
+
+      // Monthly janitorial
+      if (activeServices.has('janitorial')) {
+        let monthly = sqft * baseRate * volMult;
+        let label = 'Monthly cleaning — ' + bizLabel + ', ' + freq + 'x/week';
+        if (isAfterHours) {
+          monthly *= afterPrem;
+          label += ' after hours';
+        }
+        const display = Math.round(monthly);
+        grandTotal += display;
+        items.push({
+          label: label,
+          sub: Math.round(sqft * baseRate * volMult).toLocaleString() + ' /mo' + (isAfterHours ? ' × ' + afterPrem.toFixed(2) + ' premium' : ''),
+          price: formatPrice(display) + ' <span class="freq">/mo</span>'
+        });
+      }
+
+      // One-time services
+      const svcs = {
+        wax: { rateId: 'rWax', name: 'Strip & Wax', suffix: '' },
+        carpet: { rateId: 'rCarpet', name: 'Carpet Cleaning', suffix: '' },
+        windows: { rateId: 'rWindows', name: 'Window Cleaning', suffix: '' },
+        deep: { rateId: 'rDeep', name: 'Deep Clean', suffix: '' },
+      };
+
+      for (const [key, svc] of Object.entries(svcs)) {
+        if (activeServices.has(key)) {
+          const rate = parseFloat(document.getElementById(svc.rateId).value) || 0;
+          const total = Math.round(sqft * rate);
+          grandTotal += total;
+          items.push({
+            label: svc.name,
+            sub: (rate * 100).toFixed(1) + '¢/sq ft × ' + sqft.toLocaleString() + ' sq ft',
+            price: formatPrice(total) + ' <span class="freq">one-time</span>'
+          });
+        }
+      }
+
+      // Move in/out
+      if (activeServices.has('move')) {
+        const moveFee = parseFloat(document.getElementById('rMove').value) || 500;
+        grandTotal += moveFee;
+        items.push({
+          label: 'Move In/Out Clean',
+          sub: 'Flat rate',
+          price: formatPrice(moveFee) + ' <span class="freq">one-time</span>'
+        });
+      }
+
+      // Render
+      let html = '';
+      for (const item of items) {
+        html += '<div class="result-item">';
+        html += '<div><span class="label">' + item.label + '</span><span class="sub">' + item.sub + '</span></div>';
+        html += '<div class="price">' + item.price + '</div>';
+        html += '</div>';
+      }
+      event.innerHTML = html;
+
+      if (items.length === 0) {
+        event.innerHTML = '<div class="placeholder">Select at least one service</div>';
+        totalEl.textContent = '$0';
+        summary.textContent = '';
+        return;
+      }
+
+      totalEl.textContent = formatPrice(grandTotal);
+
+      // Summary
+      let summaryParts = [];
+      summaryParts.push(sqft.toLocaleString() + ' sq ft');
+      summaryParts.push(bizLabel);
+      if (isAfterHours) summaryParts.push('after hours');
+      summaryParts.push(freq + 'x/week');
+      summary.textContent = summaryParts.join(' · ') + (volumeNote ? ' · ' + volumeNote : '');
+
+      // Note for large spaces
       note.classList.remove('show');
-
-      // Show info note for large spaces
       if (sqft >= 10000) {
-        note.innerHTML = 'Large facility — ask about volume pricing. Call (602) 516-6133.';
+        note.innerHTML = '📞 Large facility — call (602) 516-6133 for a custom walkthrough and volume pricing.';
         note.classList.add('show');
       }
+      res.classList.add('show');
+
+      // Scroll to results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function toggleRates() {
       const editor = document.getElementById('rateEditor');
       const toggle = document.getElementById('editToggle');
-      if (editor.style.display === 'none') {
-        editor.style.display = 'block';
-        toggle.textContent = 'Done';
-      } else {
-        editor.style.display = 'none';
+      if (editor.classList.contains('open')) {
+        editor.classList.remove('open');
         toggle.textContent = 'Edit';
         calculate();
+      } else {
+        editor.classList.add('open');
+        toggle.textContent = 'Done';
       }
     }
 
-    // Calculate on Enter
     document.getElementById('sqft').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') calculate();
     });
