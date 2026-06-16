@@ -149,6 +149,7 @@
           <div class="toggle-btn" data-biz="school" onclick="setBiz(this,'school')">School</div>
           <div class="toggle-btn active" data-biz="retail" onclick="setBiz(this,'retail')">Retail</div>
           <div class="toggle-btn" data-biz="industrial" onclick="setBiz(this,'industrial')">Industrial</div>
+          <div class="toggle-btn" data-biz="restaurant" onclick="setBiz(this,'restaurant')">Restaurant</div>
           <div class="toggle-btn" data-biz="other" onclick="setBiz(this,'other')">Other</div>
         </div>
       </div>
@@ -217,27 +218,30 @@
       <div class="rate-editor" id="rateEditor">
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly rate (daily service, per sq ft)</div>
         <div class="row">
-          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="0.25"></div>
-          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="0.35"></div>
+          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="0.14"></div>
+          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="0.22"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.01" value="0.22"></div>
-          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.01" value="0.29"></div>
+          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.01" value="0.10"></div>
+          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.01" value="0.15"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="0.18"></div>
-          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="0.22"></div>
+          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="0.14"></div>
+          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="0.14"></div>
+        </div>
+        <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Restaurant rate (if applicable)</div>
+        <div class="form-group"><input type="number" id="rRestaurant" step="0.01" value="0.26" style="width:100px;"></div>
         </div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
         <div class="form-group"><input type="number" id="afterHoursPrem" step="0.01" value="1.25" style="width:100px;"></div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services (per sq ft)</div>
         <div class="row">
           <div class="form-group"><label>Strip &amp; Wax</label><input type="number" id="rWax" step="0.01" value="0.35"></div>
-          <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.25"></div>
+          <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.22"></div>
         </div>
         <div class="row">
           <div class="form-group"><label>Windows</label><input type="number" id="rWindows" step="0.01" value="5.00"></div>
-          <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.20"></div>
+          <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
         </div>
         <div class="form-group"><label>Move In/Out (flat fee)</label><input type="number" id="rMove" step="10" value="500"></div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
@@ -277,28 +281,29 @@
 
     function getBaseRate(biz) {
       const map = {
-        office:     parseFloat(document.getElementById('rOffice').value) || 0.25,
-        medical:    parseFloat(document.getElementById('rMedical').value) || 0.35,
-        school:     parseFloat(document.getElementById('rSchool').value) || 0.22,
-        retail:     parseFloat(document.getElementById('rRetail').value) || 0.29,
-        industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.18,
-        other:      parseFloat(document.getElementById('rOther').value) || 0.22,
+        office:     parseFloat(document.getElementById('rOffice').value) || 0.14,
+        medical:    parseFloat(document.getElementById('rMedical').value) || 0.22,
+        school:     parseFloat(document.getElementById('rSchool').value) || 0.10,
+        retail:     parseFloat(document.getElementById('rRetail').value) || 0.15,
+        industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.14,
+        restaurant: parseFloat(document.getElementById('rRestaurant').value) || 0.26,
+        other:      parseFloat(document.getElementById('rOther').value) || 0.14,
       };
-      return map[biz] || 0.22;
+      return map[biz] || 0.14;
     }
 
     function getBizLabel(biz) {
       const map = {
-        office: 'Office', medical: 'Medical/Dental', school: 'School/Daycare',
-        retail: 'Retail', industrial: 'Industrial/Warehouse', other: 'Other'
+        office: 'Office', medical: 'Medical/Behavioral Health', school: 'School/Church',
+        retail: 'Retail', industrial: 'Industrial/Warehouse', restaurant: 'Restaurant', other: 'Other'
       };
       return map[biz] || biz;
     }
 
     function getBizLong(biz) {
       const map = {
-        office: 'an Office', medical: 'a Medical/Dental', school: 'a School/Daycare',
-        retail: 'a Retail', industrial: 'an Industrial/Warehouse', other: 'a Commercial'
+        office: 'an Office', medical: 'a Medical/Behavioral Health', school: 'a School/Church',
+        retail: 'a Retail', industrial: 'an Industrial/Warehouse', restaurant: 'a Restaurant', other: 'a Commercial'
       };
       return map[biz] || 'a Commercial';
     }
