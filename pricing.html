@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CleanWorks — Pricing Calculator</title>
+  <title>CleanWorks — Pricing Calculator & Quote Generator</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -15,7 +15,7 @@
       padding-bottom: 40px;
     }
     .container {
-      max-width: 480px;
+      max-width: 520px;
       margin: 0 auto;
     }
     .header {
@@ -41,42 +41,59 @@
     .card {
       background: white;
       border-radius: 16px;
-      padding: 24px 20px;
+      padding: 20px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .card h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 0.92rem;
+      font-weight: 700;
       color: #374151;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card h2 .step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: #479202;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
     }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 500;
       color: #4b5563;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
-      padding: 12px 14px;
-      font-size: 1rem;
+      padding: 11px 13px;
+      font-size: 0.95rem;
       border: 1.5px solid #d1d5db;
       border-radius: 10px;
       background: white;
       -webkit-appearance: none;
       appearance: none;
       transition: border-color 0.2s;
+      font-family: inherit;
     }
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #479202;
       box-shadow: 0 0 0 3px rgba(71,146,2,0.12);
     }
+    textarea { resize: vertical; min-height: 60px; }
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -99,11 +116,11 @@
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
     .btn {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       font-size: 1rem;
       font-weight: 600;
       border: none;
@@ -135,23 +152,23 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 14px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #f3f4f6;
     }
     .result-item:last-child { border-bottom: none; }
     .result-item .label {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #374151;
       flex: 1;
     }
     .result-item .label .sub {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: #9ca3af;
       margin-top: 2px;
     }
     .result-item .price {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: #1f2937;
       text-align: right;
@@ -160,7 +177,7 @@
     }
     .result-item .price .freq {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 400;
       color: #9ca3af;
       text-align: right;
@@ -175,20 +192,20 @@
       align-items: center;
     }
     .total-box .label {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: #374151;
     }
     .total-box .price {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: #479202;
     }
     .disclaimer {
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: #9ca3af;
-      padding-top: 12px;
+      padding-top: 10px;
       line-height: 1.5;
     }
     .placeholder {
@@ -205,9 +222,9 @@
     .toggle-btn {
       flex: 1;
       min-width: calc(50% - 4px);
-      padding: 10px 8px;
+      padding: 9px 6px;
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 500;
       border: 1.5px solid #d1d5db;
       border-radius: 8px;
@@ -224,7 +241,7 @@
     }
     .footer {
       text-align: center;
-      padding: 12px 0 24px;
+      padding: 12px 0;
     }
     .footer a {
       color: #479202;
@@ -239,7 +256,7 @@
     }
     .service-btn {
       padding: 8px 14px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
       border: 1.5px solid #d1d5db;
       border-radius: 20px;
@@ -260,18 +277,18 @@
     .rate-editor label { font-size: 0.75rem; }
     .rate-editor input { padding: 8px 10px; font-size: 0.9rem; }
     .note {
-      margin-top: 12px;
+      margin-top: 10px;
       padding: 12px;
       background: #fefce8;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: #92400e;
       line-height: 1.5;
       display: none;
     }
     .note.show { display: block; }
     .summary-line {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #6b7280;
       margin-top: 8px;
       line-height: 1.6;
@@ -279,18 +296,67 @@
     .btn-space {
       margin-top: 10px;
     }
+    .section-divider {
+      text-align: center;
+      color: #d1d5db;
+      font-size: 0.75rem;
+      margin: 4px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid #e5e7eb;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>🧹 CleanWorks Solutions</h1>
-      <p>Commercial Cleaning · Pricing Calculator</p>
+      <p>Pricing Calculator &amp; Quote Generator</p>
       <div class="install-note">📲 Tap Share → Add to Home Screen to use as app</div>
     </div>
 
+    <!-- STEP 1: CLIENT INFO -->
     <div class="card">
-      <h2>1. Space Details</h2>
+      <h2><span class="step">1</span> Client Information</h2>
+      <div class="row">
+        <div class="form-group">
+          <label for="cCompany">Company Name</label>
+          <input type="text" id="cCompany" placeholder="e.g. Smith & Associates">
+        </div>
+        <div class="form-group">
+          <label for="cContact">Contact Person</label>
+          <input type="text" id="cContact" placeholder="e.g. John Smith">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="cPhone">Phone</label>
+          <input type="tel" id="cPhone" placeholder="(602) 555-0123">
+        </div>
+        <div class="form-group">
+          <label for="cEmail">Email</label>
+          <input type="email" id="cEmail" placeholder="john@smith.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cAddress">Billing Address</label>
+        <input type="text" id="cAddress" placeholder="Street, City, State, ZIP">
+      </div>
+      <div class="form-group">
+        <label for="cFacility">Facility Address (if different)</label>
+        <input type="text" id="cFacility" placeholder="Street, City, State, ZIP">
+      </div>
+    </div>
+
+    <!-- STEP 2: SPACE DETAILS -->
+    <div class="card">
+      <h2><span class="step">2</span> Space Details</h2>
 
       <div class="form-group">
         <label for="sqft">Square Footage</label>
@@ -331,8 +397,9 @@
       </div>
     </div>
 
+    <!-- STEP 3: SERVICES -->
     <div class="card">
-      <h2>2. Services</h2>
+      <h2><span class="step">3</span> Services</h2>
       <div class="service-toggles" id="services">
         <div class="service-btn active" data-svc="janitorial" onclick="toggleSvc(this)">🧹 Daily Cleaning</div>
         <div class="service-btn" data-svc="wax" onclick="toggleSvc(this)">✨ Strip & Wax</div>
@@ -342,35 +409,37 @@
         <div class="service-btn" data-svc="move" onclick="toggleSvc(this)">📦 Move In/Out</div>
       </div>
 
-      <button class="btn btn-primary" onclick="calculate()" style="margin-top:16px;">Get Price →</button>
+      <button class="btn btn-primary" onclick="calculate()" style="margin-top:14px;">Get Price →</button>
     </div>
 
+    <!-- ESTIMATE RESULTS -->
     <div class="results" id="results">
       <div class="card">
-        <h2>Estimate</h2>
+        <h2>📋 Estimate</h2>
         <div id="estimateItems"></div>
         <div class="total-box" id="totalBox">
-          <span class="label">Total</span>
+          <span class="label">Estimated Monthly Total</span>
           <span class="price" id="totalPrice">$0</span>
         </div>
         <div class="summary-line" id="summaryLine"></div>
         <div class="note" id="note"></div>
         <div class="disclaimer">
-          Estimate only. Final price after site walkthrough.<br>
+          Estimate only. Final price confirmed after on-site walkthrough.<br>
           📞 <strong>(602) 516-6133</strong>
         </div>
-        <button class="btn btn-secondary btn-space" onclick="generateQuote()">📄 Generate Quote →</button>
+        <button class="btn btn-secondary btn-space" onclick="generateQuote()">📄 Generate Formal Quote →</button>
+        <button class="btn btn-secondary btn-space" onclick="calculate()" style="border-color:#d1d5db;color:#6b7280;font-size:0.85rem;padding:8px;">🔄 Recalculate</button>
       </div>
     </div>
 
-    <div class="card" style="padding: 16px 20px;">
+    <!-- RATE SETTINGS -->
+    <div class="card" style="padding: 14px 20px;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:0.82rem; color:#6b7280;">Rate settings</span>
-        <span id="editToggle" style="color:#479202; font-size:0.82rem; font-weight:500; cursor:pointer;" onclick="toggleRates()">Edit</span>
+        <span style="font-size:0.8rem; color:#6b7280;">⚙️ Rate settings</span>
+        <span id="editToggle" style="color:#479202; font-size:0.8rem; font-weight:500; cursor:pointer;" onclick="toggleRates()">Edit</span>
       </div>
       <div class="rate-editor" id="rateEditor">
-
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly rate (daily service, per sq ft)</div>
+        <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly rate (daily service, per sq ft)</div>
         <div class="row">
           <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="1.50"></div>
           <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="2.20"></div>
@@ -383,11 +452,9 @@
           <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="1.20"></div>
           <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="1.40"></div>
         </div>
-
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
+        <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
         <div class="form-group"><input type="number" id="afterHoursPrem" step="0.01" value="1.25" style="width:100px;"></div>
-
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services (per sq ft)</div>
+        <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services (per sq ft)</div>
         <div class="row">
           <div class="form-group"><label>Strip &amp; Wax</label><input type="number" id="rWax" step="0.01" value="0.30"></div>
           <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.20"></div>
@@ -397,13 +464,11 @@
           <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
         </div>
         <div class="form-group"><label>Move In/Out (flat fee)</label><input type="number" id="rMove" step="10" value="500"></div>
-
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
+        <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
         <div class="row">
           <div class="form-group"><label>10K+ sq ft discount</label><input type="number" id="discLarge" step="0.01" value="0.95" style="width:100px;"></div>
           <div class="form-group"><label>25K+ sq ft discount</label><input type="number" id="discXLarge" step="0.01" value="0.90" style="width:100px;"></div>
         </div>
-
       </div>
     </div>
 
@@ -460,10 +525,6 @@
       return map[biz] || biz;
     }
 
-    function formatPrice(n) {
-      return '$' + Math.round(n).toLocaleString();
-    }
-
     function getBizLabelLong(biz) {
       const map = {
         office: 'Commercial Office Cleaning',
@@ -471,9 +532,21 @@
         school: 'School & Daycare Cleaning',
         retail: 'Retail Space Cleaning',
         industrial: 'Industrial & Warehouse Cleaning',
-        other: 'Commercial Cleaning'
+        other: 'Commercial Cleaning Services'
       };
-      return map[biz] || 'Commercial Cleaning';
+      return map[biz] || 'Commercial Cleaning Services';
+    }
+
+    function getFreqLabel(n) {
+      return {1:'Weekly (1x/week)', 2:'Light Cleaning (2x/week)', 3:'Standard (3x/week)', 5:'Daily (5x/week)'}[n] || n + 'x/week';
+    }
+
+    function formatPrice(n) {
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    function val(id) {
+      return (document.getElementById(id).value || '').trim();
     }
 
     function calculate() {
@@ -491,7 +564,7 @@
 
       if (!sqft || sqft < 100) {
         res.classList.add('show');
-        event.innerHTML = '<div class="placeholder">Enter square footage</div>';
+        event.innerHTML = '<div class="placeholder">Enter square footage above</div>';
         totalEl.textContent = '$0';
         summary.textContent = '';
         note.classList.remove('show');
@@ -512,7 +585,6 @@
       let items = [];
       let grandTotal = 0;
 
-      // Monthly janitorial
       if (activeServices.has('janitorial')) {
         let monthly = sqft * baseRate * (freq / 5) * volMult;
         let label = bizLabel + ', ' + freq + 'x/week';
@@ -562,7 +634,6 @@
         });
       }
 
-      // Render
       let html = '';
       for (const item of items) {
         html += '<div class="result-item">';
@@ -573,7 +644,7 @@
       event.innerHTML = html;
 
       if (items.length === 0) {
-        event.innerHTML = '<div class="placeholder">Select a service</div>';
+        event.innerHTML = '<div class="placeholder">Select at least one service</div>';
         totalEl.textContent = '$0';
         summary.textContent = '';
         lastCalc = null;
@@ -598,40 +669,54 @@
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       lastCalc = {
-        sqft, freq, isAfterHours, bizLabel, biz: selectedBiz,
-        baseRate, volMult, volumeNote, volumePct,
+        sqft, freq, isAfterHours, biz: selectedBiz,
+        bizLabel, baseRate, volMult, volumeNote, volumePct,
         items: items.map(i => ({...i})),
         grandTotal
       };
     }
 
     function generateQuote() {
-      if (!lastCalc) return;
-
-      const d = new Date();
-      const dateStr = (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
-      const quoteNum = 'CW-Q' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + String(Math.floor(Math.random() * 1000)).padStart(3,'0');
+      if (!lastCalc) { calculate(); if (!lastCalc) return; }
 
       const c = lastCalc;
-      const freqLabel = {1:'Weekly (1x/week)', 2:'Light (2x/week)', 3:'Standard (3x/week)', 5:'Daily (5x/week)'}[c.freq] || c.freq + 'x/week';
+      const d = new Date();
+      const dateStr = (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear();
+      const validUntil = (d.getMonth()+1)+'/'+d.getDate()+30+'/'+d.getFullYear();
+      const qnum = 'CW-Q'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(Math.floor(Math.random()*900)+100);
+
+      // Client data from form
+      const cl = {
+        company: val('cCompany') || '_________________________',
+        contact: val('cContact') || '_________________________',
+        phone:   val('cPhone')   || '_________________________',
+        email:   val('cEmail')   || '_________________________',
+        address: val('cAddress') || '_________________________',
+        facility: val('cFacility') || '_________________________'
+      };
+
+      const freqLabel = getFreqLabel(c.freq);
       const timeLabel = c.isAfterHours ? 'After hours / Early morning' : 'During business hours';
+      const bizLong = getBizLabelLong(c.biz);
 
       let itemsHtml = '';
       for (const item of c.items) {
-        const qty = item.type === 'monthly' ? 'Monthly' : 'One-time';
         itemsHtml += `<tr>
-          <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;">${item.label}</td>
-          <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:0.85rem;color:#6b7280;">${item.sub}</td>
-          <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:600;">${item.price.replace('<span class="freq">', '<span style="display:block;font-size:0.7rem;font-weight:400;color:#9ca3af;">').replace('</span>','</span>')}</td>
+          <td style="padding:8px;border-bottom:1px solid #e5e7eb;">${item.label}</td>
+          <td style="padding:8px;border-bottom:1px solid #e5e7eb;font-size:0.82rem;color:#6b7280;">${item.sub}</td>
+          <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:600;white-space:nowrap;">${item.price.replace('<span class="freq">','<span style="display:block;font-size:0.68rem;font-weight:400;color:#9ca3af;">').replace('</span>','</span>')}</td>
         </tr>`;
       }
 
-      const win = window.open('', '_blank', 'width=800,height=900,scrollbars=yes');
+      const isOneTime = c.items.some(i => i.type === 'onetime');
+      const totalLabel = isOneTime ? 'Estimated Total' : 'Estimated Monthly Total';
+
+      const win = window.open('', '_blank', 'width=850,height=1000,scrollbars=yes');
       win.document.write(`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Quote ${quoteNum} — CleanWorks Solutions</title>
+  <title>Quote ${qnum} — CleanWorks Solutions</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -642,8 +727,9 @@
       max-width: 800px;
       margin: 0 auto;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    .header {
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -651,83 +737,68 @@
       border-bottom: 3px solid #479202;
       margin-bottom: 24px;
     }
-    .header .logo-area {
+    .top-bar .logo-group {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .header .logo-area img { height: 50px; }
-    .header .logo-area h1 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #111827;
-    }
-    .header .logo-area span { color: #479202; }
-    .header .company-info {
+    .top-bar .logo-group img { height: 48px; }
+    .top-bar .logo-group h1 { font-size: 1.3rem; font-weight: 800; color: #111827; }
+    .top-bar .logo-group h1 span { color: #479202; }
+    .top-bar .right {
       text-align: right;
       font-size: 0.82rem;
       color: #6b7280;
       line-height: 1.7;
     }
-    .header .company-info strong { color: #1f2937; }
-    .quote-meta {
+    .top-bar .right strong { color: #1f2937; }
+    .meta-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 28px;
-      padding: 16px 20px;
+      margin-bottom: 24px;
+      padding: 14px 18px;
       background: #f9fafb;
       border-radius: 10px;
-    }
-    .quote-meta .col { font-size: 0.88rem; }
-    .quote-meta .col strong { display: block; font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-    .client-info {
-      margin-bottom: 24px;
-    }
-    .client-info h3 {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-    .client-info .field {
-      display: flex;
       gap: 12px;
-      margin-bottom: 8px;
-      align-items: center;
+      flex-wrap: wrap;
     }
-    .client-info .field label {
-      font-size: 0.82rem;
-      color: #6b7280;
-      width: 100px;
-      flex-shrink: 0;
-    }
-    .client-info .field .line {
-      flex: 1;
-      border-bottom: 1px solid #d1d5db;
-      height: 24px;
-    }
-    .services-desc {
+    .meta-row .box { font-size: 0.85rem; }
+    .meta-row .box .lbl { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-weight: 600; }
+    .meta-row .box .val { font-weight: 600; }
+    .client-box {
       margin-bottom: 24px;
+      padding: 16px 18px;
+      background: #f9fafb;
+      border-radius: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
     }
-    .services-desc h3 {
-      font-size: 1rem;
+    .client-box .field { font-size: 0.82rem; }
+    .client-box .field .lbl { display: block; font-size: 0.68rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
+    .client-box .field .val { font-weight: 500; }
+    .client-box .field.full { grid-column: 1 / -1; }
+    h3.sec-title {
+      font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 8px;
+      color: #111827;
     }
-    .services-desc p {
-      font-size: 0.88rem;
+    .desc-text {
+      font-size: 0.85rem;
       color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.7;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     th {
       text-align: left;
-      padding: 10px 8px;
-      font-size: 0.75rem;
+      padding: 8px;
+      font-size: 0.7rem;
       font-weight: 600;
       color: #9ca3af;
       text-transform: uppercase;
@@ -735,69 +806,51 @@
       border-bottom: 2px solid #e5e7eb;
     }
     th:last-child { text-align: right; }
-    .grand-total {
+    .total-box {
       background: #f0f7eb;
-      padding: 14px 16px;
+      padding: 14px 18px;
       border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 28px;
     }
-    .grand-total .label { font-weight: 700; font-size: 1rem; }
-    .grand-total .price { font-size: 1.5rem; font-weight: 800; color: #479202; }
-    .terms {
+    .total-box .lbl { font-weight: 700; font-size: 1rem; }
+    .total-box .amt { font-size: 1.4rem; font-weight: 800; color: #479202; }
+    .terms-box {
       padding-top: 20px;
       border-top: 1px solid #e5e7eb;
     }
-    .terms h3 {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-    }
-    .terms p {
-      font-size: 0.82rem;
-      color: #6b7280;
-      line-height: 1.7;
-    }
+    .terms-box h3 { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 600; }
+    .terms-box p { font-size: 0.8rem; color: #6b7280; line-height: 1.7; }
+    .terms-box p strong { color: #374151; }
     .actions {
       text-align: center;
-      margin-top: 32px;
-      padding-top: 24px;
+      margin-top: 28px;
+      padding-top: 20px;
       border-top: 1px solid #e5e7eb;
     }
     .actions button {
-      background: #479202;
-      color: white;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+      background: #479202; color: white; border: none;
+      padding: 12px 36px; border-radius: 8px;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
     }
     .actions button:hover { background: #3a7a02; }
-    .actions .note {
-      margin-top: 8px;
-      font-size: 0.78rem;
-      color: #9ca3af;
-    }
+    .actions .note { margin-top: 8px; font-size: 0.75rem; color: #9ca3af; }
     @media print {
       .actions { display: none; }
-      body { padding: 20px; }
+      body { padding: 15px; }
     }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="logo-area">
+<div class="top-bar">
+  <div class="logo-group">
     <img src="https://solutionscleanworks.github.io/cleanworks-site/logo.jpg" alt="CleanWorks">
     <h1><span>Clean</span>Works Solutions</h1>
   </div>
-  <div class="company-info">
+  <div class="right">
     <strong>CleanWorks Solutions LLC</strong><br>
     Phoenix, AZ<br>
     📞 (602) 516-6133<br>
@@ -805,67 +858,68 @@
   </div>
 </div>
 
-<div class="quote-meta">
-  <div class="col">
-    <strong>Quote #</strong>
-    ${quoteNum}
-  </div>
-  <div class="col">
-    <strong>Date</strong>
-    ${dateStr}
-  </div>
-  <div class="col">
-    <strong>Valid Until</strong>
-    ${(d.getMonth()+1)}/${d.getDate() + 30}/${d.getFullYear()}
-  </div>
-  <div class="col">
-    <strong>Status</strong>
-    Estimate
-  </div>
+<div class="meta-row">
+  <div class="box"><span class="lbl">Quote #</span><span class="val">${qnum}</span></div>
+  <div class="box"><span class="lbl">Date</span><span class="val">${dateStr}</span></div>
+  <div class="box"><span class="lbl">Valid Until</span><span class="val">${validUntil}</span></div>
+  <div class="box"><span class="lbl">Status</span><span class="val">Estimate</span></div>
 </div>
 
-<div class="client-info">
-  <h3>Prepared For</h3>
-  <div class="field"><label>Company</label><div class="line"></div></div>
-  <div class="field"><label>Contact</label><div class="line"></div></div>
-  <div class="field"><label>Phone</label><div class="line"></div></div>
-  <div class="field"><label>Email</label><div class="line"></div></div>
-  <div class="field"><label>Address</label><div class="line"></div></div>
+<div class="client-box">
+  <div class="field"><span class="lbl">Company</span><span class="val">${cl.company}</span></div>
+  <div class="field"><span class="lbl">Contact</span><span class="val">${cl.contact}</span></div>
+  <div class="field"><span class="lbl">Phone</span><span class="val">${cl.phone}</span></div>
+  <div class="field"><span class="lbl">Email</span><span class="val">${cl.email}</span></div>
+  <div class="field full"><span class="lbl">Billing Address</span><span class="val">${cl.address}</span></div>
+  <div class="field full"><span class="lbl">Facility Address</span><span class="val">${cl.facility}</span></div>
 </div>
 
-<div class="services-desc">
-  <h3>Service Description</h3>
-  <p>${getBizLabelLong(c.biz)} — ${c.sqft.toLocaleString()} sq ft facility in the Phoenix metro area.
-  Service includes ${freqLabel.toLowerCase()} ${c.isAfterHours ? 'after-hours/early morning' : 'during business hours'} cleaning
-  with a dedicated crew, flat-rate pricing, and full satisfaction guarantee.
-  ${c.volumePct > 0 ? ' Volume discount of ' + c.volumePct + '% applied.' : ''}</p>
-</div>
+<h3 class="sec-title">Service Description</h3>
+<p class="desc-text">
+  ${bizLong} for a <strong>${c.sqft.toLocaleString()} sq ft</strong> facility located in the Phoenix metro area.
+  Service includes <strong>${freqLabel.toLowerCase()}</strong> cleaning
+  ${c.isAfterHours ? '<strong>after hours / early morning</strong>' : '<strong>during business hours</strong>'}
+  performed by a dedicated CleanWorks crew. Flat-rate pricing with full satisfaction guarantee.
+  ${c.volumePct > 0 ? 'A <strong>' + c.volumePct + '% volume discount</strong> has been applied.' : ''}
+  All supplies and equipment provided by CleanWorks.
+</p>
 
 <table>
   <tr>
-    <th>Service</th>
-    <th>Details</th>
-    <th style="text-align:right;">Amount</th>
+    <th style="width:38%;">Service</th>
+    <th style="width:38%;">Details</th>
+    <th style="width:24%;text-align:right;">Amount</th>
   </tr>
   ${itemsHtml}
 </table>
 
-<div class="grand-total">
-  <span class="label">Estimated Monthly Total</span>
-  <span class="price">${formatPrice(c.grandTotal)}/mo</span>
+<div class="total-box">
+  <span class="lbl">${totalLabel}</span>
+  <span class="amt">${formatPrice(c.grandTotal)}${isOneTime ? '' : '/mo'}</span>
 </div>
 
-<div class="terms">
-  <h3>Terms & Conditions</h3>
+<div class="terms-box">
+  <h3>Terms &amp; Conditions</h3>
   <p>
-    <strong>Pricing:</strong> This is an estimate based on the information provided. Final pricing is confirmed after a
-    complimentary on-site walkthrough of your facility.<br><br>
-    <strong>Contract:</strong> Services are provided under a straightforward flat-rate contract with no hidden fees.
-    Contract terms are discussed during the walkthrough.<br><br>
-    <strong>Cancellation:</strong> 30-day written notice required for cancellation.<br><br>
-    <strong>Satisfaction Guarantee:</strong> If any service doesn't meet your standards, we come back and fix it at no
-    additional charge.<br><br>
-    <strong>Insurance:</strong> CleanWorks Solutions LLC is fully licensed, insured, and bonded.
+    <strong>1. Pricing.</strong> This estimate is based on the information provided above and is valid for 30 days from the date of this quote. Final pricing is confirmed after a complimentary on-site walkthrough of the facility. Quotes for large spaces (10,000+ sq ft) may require custom pricing.<br><br>
+
+    <strong>2. Contract.</strong> Services are provided under a written flat-rate service agreement. The agreement details the scope of work, frequency, pricing, and duration. Standard contract term is 12 months. Month-to-month options are available at a 15% surcharge.<br><br>
+
+    <strong>3. Payments.</strong> Invoices are sent monthly and are due net 30. Late payments are subject to a 1.5% monthly finance charge. We accept checks, ACH transfers, and credit cards (3% processing fee applies to credit cards).<br><br>
+
+    <strong>4. Cancellation.</strong> Either party may terminate the agreement with 30 days written notice. Early termination within the first 6 months of a 12-month contract is subject to a cancellation fee equal to one month of service.<br><br>
+
+    <strong>5. Service Scope.</strong> Standard daily cleaning includes: trash removal, vacuuming all carpeted areas, mopping all hard floors with disinfectant, sanitizing all restrooms, cleaning and restocking restroom supplies, wiping high-touch surfaces, cleaning breakroom/kitchen counters and sinks, and spot-cleaning glass. Specialty services (strip & wax, carpet extraction, window cleaning, deep cleaning) are quoted separately and performed on a scheduled basis.<br><br>
+
+    <strong>6. Satisfaction Guarantee.</strong> If any area does not meet your standards, contact us within 24 hours and we will re-clean it at no additional charge. No argument, no excuses.<br><br>
+
+    <strong>7. Price Adjustments.</strong> Pricing is locked for the first 12 months of service. Thereafter, prices may be adjusted annually based on changes in labor costs, insurance premiums, and supply costs. Any adjustment will be communicated at least 60 days in advance.<br><br>
+
+    <strong>8. Insurance.</strong> CleanWorks Solutions LLC carries general liability insurance ($2M) and workers' compensation insurance as required by Arizona law. A certificate of insurance is available upon request.<br><br>
+
+    <strong>9. Access &amp; Security.</strong> Client agrees to provide reasonable access to the facility during scheduled cleaning times. CleanWorks will maintain the confidentiality of any access codes, keys, or security information provided.<br><br>
+
+    <strong>10. Governing Law.</strong> This agreement is governed by the laws of the State of Arizona.
   </p>
 </div>
 
