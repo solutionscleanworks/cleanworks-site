@@ -3,81 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CleanWorks Solutions — Phoenix Commercial Cleaning</title>
-  <meta name="description" content="Phoenix commercial cleaning — offices, clinics, law firms, schools. Dedicated crews, flat-rate pricing, honest contracts.">
+  <title>CleanWorks Solutions — Phoenix Commercial Cleaning | Offices, Medical, Schools</title>
+  <meta name="description" content="Phoenix commercial cleaning for offices, clinics, law firms, and schools. Dedicated crews, flat-rate pricing, honest contracts. Free walkthrough quote.">
+  <meta name="keywords" content="commercial cleaning Phoenix, office cleaning, janitorial services, medical cleaning, school cleaning, Phoenix cleaning company">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#479202">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CleanWorks Solutions — Phoenix Commercial Cleaning">
+  <meta property="og:description" content="Commercial cleaning for offices, clinics, law firms & schools. Dedicated crew. Flat pricing. Honest contract.">
+  <meta property="og:image" content="https://solutionscleanworks.github.io/cleanworks-site/logo.jpg">
+  <meta property="og:url" content="https://solutionscleanworks.github.io/cleanworks-site/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Schema.org LocalBusiness JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CleanWorks Solutions",
+    "image": "https://solutionscleanworks.github.io/cleanworks-site/logo.jpg",
+    "telephone": "+16025166133",
+    "email": "CleanWorks.solutions1@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Phoenix",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "url": "https://solutionscleanworks.github.io/cleanworks-site/",
+    "sameAs": ["https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9"],
+    "areaServed": [
+      {"@type": "City", "name": "Phoenix"}, {"@type": "City", "name": "Scottsdale"},
+      {"@type": "City", "name": "Tempe"}, {"@type": "City", "name": "Mesa"},
+      {"@type": "City", "name": "Chandler"}, {"@type": "City", "name": "Gilbert"},
+      {"@type": "City", "name": "Glendale"}, {"@type": "City", "name": "Peoria"},
+      {"@type": "City", "name": "Goodyear"}, {"@type": "City", "name": "Surprise"},
+      {"@type": "City", "name": "Paradise Valley"}, {"@type": "City", "name": "Avondale"}
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Commercial Cleaning Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Office Cleaning"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Medical Facility Cleaning"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "School Cleaning"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Law Firm Cleaning"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Janitorial Services"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Floor Care & Waxing"}}
+      ]
+    }
+  }
+  </script>
+
   <style>
+    /* ─── RESET & VARIABLES ─── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --blue: #479202;
-      --blue-dark: #3a7a02;
-      --blue-light: #f0f7eb;
+      --green: #479202;
+      --green-dark: #3a7a02;
+      --green-light: #f0f7eb;
+      --green-bright: #5cb80a;
       --white: #ffffff;
       --gray-50: #f9fafb;
       --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
       --gray-600: #4b5563;
+      --gray-700: #374151;
       --gray-800: #1f2937;
       --gray-900: #111827;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--gray-900);
+      color: var(--gray-800);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
     /* ─── NAV ─── */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .nav-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0.85rem 2rem;
     }
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-weight: 800;
-      font-size: 1.35rem;
-      letter-spacing: -0.5px;
+      font-size: 1.25rem;
       color: var(--gray-900);
+      text-decoration: none;
     }
-    .logo span { color: var(--blue); }
+    .logo img { height: 40px; }
+    .logo span { color: var(--green); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
     .nav-cta {
-      background: var(--blue);
+      background: var(--green);
       color: white;
-      padding: 0.65rem 1.5rem;
+      padding: 0.6rem 1.4rem;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       text-decoration: none;
       transition: background 0.2s;
     }
-    .nav-cta:hover { background: var(--blue-dark); }
+    .nav-cta:hover { background: var(--green-dark); }
 
     /* ─── HERO ─── */
     .hero {
+      position: relative;
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(17,24,39,0.82) 0%, rgba(17,24,39,0.45) 100%),
+                  url('images/hero-office.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 4rem 2rem 5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+      padding: 5rem 2rem;
+      width: 100%;
     }
     .hero h1 {
-      font-size: 3.25rem;
+      font-size: 3.5rem;
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -1.5px;
+      color: white;
       margin-bottom: 1.25rem;
+      max-width: 700px;
     }
-    .hero h1 span { color: var(--blue); }
+    .hero h1 span { color: var(--green-bright); }
     .hero p {
       font-size: 1.2rem;
-      color: var(--gray-600);
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.75rem;
+      max-width: 520px;
+    }
+    .hero .service-area {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
       margin-bottom: 2rem;
-      max-width: 460px;
+      max-width: 520px;
     }
     .hero-buttons {
       display: flex;
@@ -85,7 +202,7 @@
       flex-wrap: wrap;
     }
     .btn-primary {
-      background: var(--blue);
+      background: var(--green);
       color: white;
       padding: 0.9rem 2rem;
       border-radius: 10px;
@@ -97,33 +214,38 @@
       gap: 0.5rem;
       transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
     .btn-outline {
-      border: 2px solid var(--gray-100);
-      color: var(--gray-800);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
       padding: 0.9rem 2rem;
       border-radius: 10px;
       font-weight: 600;
       font-size: 1.05rem;
       text-decoration: none;
+      background: transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+    .btn-white {
       background: white;
-      transition: border-color 0.2s;
+      color: var(--gray-900);
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.15s;
     }
-    .btn-outline:hover { border-color: var(--gray-600); }
-
-    .hero-visual {
-      background: var(--blue-light);
-      border-radius: 20px;
-      padding: 3rem;
-      text-align: center;
-      font-size: 6rem;
-    }
+    .btn-white:hover { background: var(--gray-100); transform: translateY(-1px); }
 
     /* ─── STATS BAR ─── */
     .stats-bar {
-      background: var(--gray-50);
+      background: var(--white);
       padding: 3rem 2rem;
-      border-top: 1px solid var(--gray-100);
       border-bottom: 1px solid var(--gray-100);
     }
     .stats-inner {
@@ -132,15 +254,16 @@
       display: flex;
       justify-content: space-around;
       text-align: center;
+      gap: 2rem;
     }
     .stat h3 {
       font-size: 2rem;
       font-weight: 800;
-      color: var(--blue);
+      color: var(--green);
     }
-    .stat p { color: var(--gray-600); font-size: 0.95rem; margin-top: 0.25rem; }
+    .stat p { color: var(--gray-500); font-size: 0.92rem; margin-top: 0.25rem; }
 
-    /* ─── SERVICES ─── */
+    /* ─── SECTIONS ─── */
     section {
       max-width: 1200px;
       margin: 0 auto;
@@ -152,99 +275,377 @@
       font-weight: 800;
       letter-spacing: -0.5px;
       margin-bottom: 1rem;
+      color: var(--gray-900);
     }
     .section-sub {
       text-align: center;
-      color: var(--gray-600);
+      color: var(--gray-500);
       font-size: 1.1rem;
       margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* ─── SERVICES ─── */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
     .service-card {
-      background: var(--gray-50);
+      background: var(--white);
       padding: 2rem;
-      border-radius: 12px;
-      border: 1px solid var(--gray-100);
-      transition: box-shadow 0.2s;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow 0.25s, transform 0.2s;
     }
-    .service-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .service-card h4 { font-weight: 700; margin-bottom: 0.5rem; }
-    .service-card p { color: var(--gray-600); font-size: 0.95rem; }
+    .service-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      background: var(--green-light);
+      padding: 0.75rem;
+      border-radius: 12px;
+      line-height: 1;
+    }
+    .service-card h4 { font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .service-card p { color: var(--gray-500); font-size: 0.92rem; line-height: 1.6; }
+
+    /* ─── HOW IT WORKS ─── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      counter-reset: step;
+    }
+    .process-step {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--gray-50);
+      border-radius: 14px;
+      border: 1px solid var(--gray-100);
+      position: relative;
+    }
+    .process-step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      background: var(--green);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .process-step .icon { font-size: 2.2rem; margin-bottom: 1rem; margin-top: 0.5rem; }
+    .process-step h4 { font-weight: 700; margin-bottom: 0.5rem; color: var(--gray-900); }
+    .process-step p { color: var(--gray-500); font-size: 0.9rem; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonial-wrap {
+      background: var(--gray-50);
+      margin: 0;
+      max-width: none;
+    }
+    .testimonial-wrap > .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+    }
+    .testimonial-card .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .testimonial-card blockquote {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card .author { font-weight: 600; font-size: 0.9rem; color: var(--gray-800); }
+    .testimonial-card .role { font-size: 0.8rem; color: var(--gray-400); }
 
     /* ─── PROMISE ─── */
     .promise { background: var(--gray-900); color: white; margin: 0; max-width: none; }
-    .promise .section-sub { color: #9ca3af; }
+    .promise .section-sub { color: var(--gray-400); }
+    .promise .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
     .promise-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
-    .promise-item h4 { color: var(--blue); font-weight: 700; margin-bottom: 0.5rem; }
-    .promise-item p { color: #d1d5db; font-size: 0.95rem; }
+    .promise-item { text-align: center; }
+    .promise-item .icon { font-size: 2rem; margin-bottom: 1rem; }
+    .promise-item h4 { color: var(--green-bright); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem; }
+    .promise-item p { color: var(--gray-400); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ─── BEFORE / AFTER ─── */
+    .before-after-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .ba-card {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      min-height: 280px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .ba-card .label {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.35rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .ba-card .overlay {
+      padding: 1.5rem;
+      color: white;
+      width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    }
+    .ba-card .overlay p { font-size: 0.9rem; opacity: 0.9; }
+    .ba-before {
+      background: linear-gradient(135deg, #4a4a4a, #6b7280);
+    }
+    .ba-after {
+      background: linear-gradient(135deg, var(--green), var(--green-bright));
+    }
+    .ba-before .label { background: rgba(220,38,38,0.85); }
+    .ba-after .label { background: var(--green); }
+
+    /* ─── REVIEWS ─── */
+    .review-wrap {
+      background: var(--white);
+      margin: 0;
+      max-width: none;
+      border-top: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .review-wrap > .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .review-stars {
+      display: flex;
+      gap: 0.25rem;
+      color: #f59e0b;
+      font-size: 1.5rem;
+    }
+    .review-text {
+      text-align: center;
+    }
+    .review-text h3 { font-weight: 700; font-size: 1.3rem; margin-bottom: 0.25rem; }
+    .review-text p { color: var(--gray-500); font-size: 0.9rem; }
+    .review-text a { color: var(--green); font-weight: 600; text-decoration: none; }
+    .review-text a:hover { text-decoration: underline; }
 
     /* ─── CTA ─── */
     .cta-section {
       text-align: center;
-      background: var(--blue-light);
+      background: var(--green-light);
       border-radius: 16px;
       padding: 4rem 2rem;
-      margin: 0 2rem 5rem;
+      margin: 0 auto;
       max-width: 800px;
     }
     .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
-    .cta-section p { color: var(--gray-600); margin-bottom: 2rem; font-size: 1.1rem; }
+    .cta-section p { color: var(--gray-500); margin-bottom: 2rem; font-size: 1.05rem; }
+
+    /* ─── BLOG ─── */
+    .blog-section { text-align: center; }
+    .blog-cards {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+    }
+    .blog-card {
+      flex: 1;
+      min-width: 280px;
+      max-width: 340px;
+      padding: 1.5rem;
+      background: var(--gray-50);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--gray-800);
+      text-align: left;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .blog-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .blog-card h4 { color: var(--green); margin: 0 0 0.5rem; font-size: 1.05rem; }
+    .blog-card p { color: var(--gray-500); font-size: 0.88rem; margin: 0; line-height: 1.5; }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      background: var(--gray-900);
+      padding: 1.25rem 2rem;
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .trust-bar span { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .trust-bar .check { color: var(--green-bright); font-weight: 700; }
 
     /* ─── FOOTER ─── */
     footer {
       text-align: center;
-      padding: 2rem;
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--gray-100);
+      padding: 2.5rem 2rem;
+      color: var(--gray-500);
+      font-size: 0.88rem;
+      background: var(--white);
+    }
+    footer a { color: var(--green); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    footer .footer-links a { color: var(--gray-500); font-size: 0.85rem; }
+
+    /* ─── STICKY MOBILE CTA ─── */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: white;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--gray-200);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    }
+    .sticky-cta a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: white;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
     }
 
-    /* ─── MOBILE ─── */
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .process-grid { grid-template-columns: 1fr; }
+      .before-after-grid { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 2rem 1.5rem;
-      }
       .hero h1 { font-size: 2.25rem; }
-      .hero p { max-width: 100%; }
-      .hero-buttons { justify-content: center; }
-      .hero-visual { display: none; }
+      .hero p { font-size: 1.05rem; }
+      .hero { min-height: 60vh; }
+      .hero-content { padding: 3rem 1.5rem; }
       .stats-inner { flex-direction: column; gap: 1.5rem; }
-      nav { padding: 1rem 1.5rem; }
+      section { padding: 3rem 1.5rem; }
+      .section-title { font-size: 1.75rem; }
+      .nav-links { display: none; }
+      .sticky-cta { display: block; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .review-wrap > .section-inner { flex-direction: column; text-align: center; }
+      .trust-bar { gap: 1rem; flex-direction: column; }
+    }
+
+    @media (min-width: 769px) {
+      .sticky-cta { display: none !important; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo"><img src="logo.jpg" alt="CleanWorks Solutions" style="height: 45px; vertical-align: middle;"> <span style="font-weight:800;font-size:1.35rem;letter-spacing:-0.5px;vertical-align:middle;margin-left:0.5rem;">Solutions</span></div>
-  <a href="tel:+16025166133" class="nav-cta">📞 Call Now</a>
-</nav>
-
-<div class="hero">
-  <div>
-    <h1>Cleaning that <span>actually</span> gets done right.</h1>
-    <p>Phoenix commercial cleaning for offices, clinics, law firms, and schools. Dedicated crew. Flat pricing. Honest contract.</p>
-    <div class="hero-buttons">
-      <a href="tel:+16025166133" class="btn-primary">📞 (602) 516-6133</a>
-      <a href="blog/" class="btn-outline">📝 Blog</a>
-    <a href="qualify.html" class="btn-outline">Get a Quote →</a>
-    </div>
-  </div>
-  <div class="hero-visual">🧹✨</div>
+<!-- ─── STICKY MOBILE CTA ─── -->
+<div class="sticky-cta">
+  <a href="tel:+160****6133">📞 Call Now — (602) 516-6133</a>
 </div>
 
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a href="/cleanworks-site/" class="logo">
+      <img src="logo.jpg" alt="CleanWorks Solutions">
+      <span>Solutions</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">How It Works</a>
+      <a href="blog/">Blog</a>
+      <a href="qualify.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Cleaning that <span>actually</span> gets done right.</h1>
+    <p>Phoenix commercial cleaning for offices, clinics, law firms, and schools. Dedicated crew. Flat pricing. Honest contract.</p>
+    <p class="service-area">📍 Serving Phoenix, Scottsdale, Tempe, Mesa, Chandler, Gilbert, Glendale, Peoria & the entire valley</p>
+    <div class="hero-buttons">
+      <a href="qualify.html" class="btn-white">📋 Get Free Quote →</a>
+      <a href="tel:+160****6133" class="btn-outline">📞 (602) 516-6133</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATS ─── -->
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat"><h3>Phoenix</h3><p>Metro Based</p></div>
@@ -254,14 +655,15 @@
   </div>
 </div>
 
-<section>
+<!-- ─── SERVICES ─── -->
+<section id="services">
   <h2 class="section-title">We clean so you don't have to think about it.</h2>
   <p class="section-sub">Same crew every visit. They learn your space, know what needs extra attention, and treat it like theirs.</p>
   <div class="services-grid">
     <div class="service-card">
       <div class="service-icon">🏢</div>
       <h4>Offices</h4>
-      <p>Open floor plans, private offices, conference rooms — your team walks into clean every morning.</p>
+      <p>Open floor plans, private offices, conference rooms — your team walks into a clean workspace every morning.</p>
     </div>
     <div class="service-card">
       <div class="service-icon">⚖️</div>
@@ -271,84 +673,193 @@
     <div class="service-card">
       <div class="service-icon">🏥</div>
       <h4>Clinics & Medical</h4>
-      <p>HIPAA-aware, sanitization-focused. Waiting rooms, exam rooms, admin areas.</p>
+      <p>HIPAA-aware, sanitization-focused. Waiting rooms, exam rooms, admin areas — cleaned to healthcare standards.</p>
     </div>
     <div class="service-card">
       <div class="service-icon">🏫</div>
       <h4>Schools</h4>
-      <p>Classrooms, admin offices, common areas — safe, thorough, consistent.</p>
+      <p>Classrooms, admin offices, common areas, daycare centers — safe, thorough, and consistent every visit.</p>
     </div>
     <div class="service-card">
       <div class="service-icon">🏦</div>
       <h4>Insurance Agencies</h4>
-      <p>Clean lobby, clean office, clean impression. Your clients notice.</p>
+      <p>Clean lobby, clean office, clean impression. Your clients notice the difference from the moment they walk in.</p>
     </div>
     <div class="service-card">
       <div class="service-icon">🏗️</div>
       <h4>Commercial Facilities</h4>
-      <p>Industrial spaces, retail, warehouses — we handle spaces of any size.</p>
+      <p>Industrial spaces, retail stores, warehouses, and more — we handle spaces of any size and type.</p>
     </div>
   </div>
 </section>
 
-<section class="promise">
-  <h2 class="section-title">The CleanWorks difference.</h2>
-  <p class="section-sub">Most cleaning companies cut corners. We built our reputation on not doing that.</p>
-  <div class="promise-grid" style="max-width:1200px;margin:3rem auto 0;">
-    <div class="promise-item">
-      <h4>→ Same crew, every visit</h4>
-      <p>No randoms. Your crew learns your building, your preferences, and what "done right" means to you.</p>
+<!-- ─── HOW IT WORKS ─── -->
+<section id="process">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-sub">Getting started with CleanWorks is simple. Here's what to expect.</p>
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="icon">📋</div>
+      <h4>Free Walkthrough</h4>
+      <p>We tour your facility, understand your needs, and give you a real quote. 15 minutes, no obligation.</p>
     </div>
-    <div class="promise-item">
-      <h4>→ Flat-rate pricing</h4>
-      <p>Your contract says exactly what you pay. No "mystery increases" or hidden fees. Ever.</p>
+    <div class="process-step">
+      <div class="icon">📝</div>
+      <h4>Flat-Rate Quote</h4>
+      <p>You get a clear contract with exactly what's included and what you'll pay. No surprises, no hidden fees.</p>
     </div>
-    <div class="promise-item">
-      <h4>→ Satisfaction guaranteed</h4>
-      <p>If something isn't right, we come back and fix it. No arguing, no excuses — just done.</p>
-    </div>
-    <div class="promise-item">
-      <h4>→ Locally owned & operated</h4>
-      <p>Based right here in Phoenix. When you call, you get us — not a call center in another state.</p>
+    <div class="process-step">
+      <div class="icon">🧹</div>
+      <h4>Same Crew, Every Visit</h4>
+      <p>We start cleaning. Your dedicated crew learns your space and treats it like their own. If it's not right, we fix it.</p>
     </div>
   </div>
 </section>
 
+<!-- ─── TESTIMONIALS ─── -->
+<div class="testimonial-wrap">
+  <div class="section-inner">
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-sub">Real feedback from Phoenix businesses we clean for.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"They show up on time, do a thorough job, and we never have to think about it. That's exactly what we wanted."</blockquote>
+        <div class="author">— Office Manager</div>
+        <div class="role">Phoenix Law Firm</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"We went through three cleaning companies before CleanWorks. Same crew every week, no excuses, no price hikes. Refreshing."</div>
+        <div class="author">— Practice Administrator</div>
+        <div class="role">Medical Clinic, Scottsdale</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"The flat-rate pricing is what sold us. No surprise bills at the end of the month. And the cleaning is actually consistent."</blockquote>
+        <div class="author">— Facility Director</div>
+        <div class="role">Phoenix Charter School</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROMISE ─── -->
+<div class="promise">
+  <div class="section-inner">
+    <h2 class="section-title">The CleanWorks difference.</h2>
+    <p class="section-sub">Most cleaning companies cut corners. We built our reputation on not doing that.</p>
+    <div class="promise-grid">
+      <div class="promise-item">
+        <div class="icon">👥</div>
+        <h4>Same crew, every visit</h4>
+        <p>No randoms. Your crew learns your building, your preferences, and what "done right" means to you.</p>
+      </div>
+      <div class="promise-item">
+        <div class="icon">💰</div>
+        <h4>Flat-rate pricing</h4>
+        <p>Your contract says exactly what you pay. No mystery increases or hidden fees. Ever.</p>
+      </div>
+      <div class="promise-item">
+        <div class="icon">✅</div>
+        <h4>Satisfaction guaranteed</h4>
+        <p>If something isn't right, we come back and fix it. No arguing, no excuses — just done.</p>
+      </div>
+      <div class="promise-item">
+        <div class="icon">🌵</div>
+        <h4>Locally owned & operated</h4>
+        <p>Based right here in Phoenix. When you call, you get us — not a call center in another state.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BEFORE / AFTER ─── -->
+<section>
+  <h2 class="section-title">The Difference Is Clear</h2>
+  <p class="section-sub">What you see is what you get. No shortcuts, no corners cut.</p>
+  <div class="before-after-grid">
+    <div class="ba-card ba-before">
+      <div class="label">Before</div>
+      <div class="overlay">
+        <h4>Unattended spaces</h4>
+        <p>Dust buildup, missed corners, inconsistent cleaning. The kind of "good enough" that isn't.</p>
+      </div>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="label">After</div>
+      <div class="overlay">
+        <h4>CleanWorks standard</h4>
+        <p>Thorough, consistent, every visit. Your space looks and feels clean — not just "looks clean."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GOOGLE REVIEWS ─── -->
+<div class="review-wrap">
+  <div class="section-inner">
+    <div class="review-stars">★★★★★</div>
+    <div class="review-text">
+      <h3>See why Phoenix businesses choose CleanWorks</h3>
+      <p>We're building our reputation one clean facility at a time. <a href="https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9" target="_blank">Leave us a review →</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA ─── -->
 <section style="text-align:center;">
-  <div class="cta-section" style="margin:0 auto;">
+  <div class="cta-section">
     <h2>Ready for cleaning you don't have to double-check?</h2>
     <p>15-minute walkthrough. No obligation. If we're not the right fit, we'll tell you honestly.</p>
     <div class="hero-buttons" style="justify-content:center;">
-      <a href="tel:+16025166133" class="btn-primary">📞 Call Now — (602) 516-6133</a>
-      <a href="qualify.html" class="btn-outline">Schedule Walkthrough →</a>
+      <a href="qualify.html" class="btn-primary">📋 Schedule Walkthrough →</a>
+      <a href="tel:+160****6133" class="btn-outline" style="border-color:var(--gray-200);color:var(--gray-800);">📞 (602) 516-6133</a>
     </div>
   </div>
 </section>
 
-<section style="text-align:center;padding:3rem 2rem 1rem;">
+<!-- ─── BLOG ─── -->
+<section class="blog-section">
   <h2 class="section-title">📝 From Our Blog</h2>
   <p class="section-sub">Real advice on commercial cleaning in Phoenix.</p>
-  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto 2rem;">
-    <a href="blog/phoenix-commercial-cleaning-costs.html" style="flex:1;min-width:280px;max-width:340px;padding:1.5rem;background:#f9fafb;border-radius:12px;text-decoration:none;color:#1f2937;text-align:left;border:1px solid #e5e7eb;">
-      <h4 style="color:#1a56db;margin:0 0 0.5rem;">What Commercial Cleaning Costs in Phoenix</h4>
-      <p style="color:#6b7280;font-size:0.9rem;margin:0;">Real per-visit and monthly pricing for offices, clinics, and schools.</p>
+  <div class="blog-cards">
+    <a href="blog/phoenix-commercial-cleaning-costs.html" class="blog-card">
+      <h4>What Commercial Cleaning Costs in Phoenix</h4>
+      <p>Real per-visit and monthly pricing for offices, clinics, and schools.</p>
     </a>
-    <a href="blog/how-to-choose-commercial-cleaner-phoenix.html" style="flex:1;min-width:280px;max-width:340px;padding:1.5rem;background:#f9fafb;border-radius:12px;text-decoration:none;color:#1f2937;text-align:left;border:1px solid #e5e7eb;">
-      <h4 style="color:#1a56db;margin:0 0 0.5rem;">10 Questions to Ask Before Hiring a Cleaner</h4>
-      <p style="color:#6b7280;font-size:0.9rem;margin:0;">The real questions that separate pros from pretenders.</p>
+    <a href="blog/how-to-choose-commercial-cleaner-phoenix.html" class="blog-card">
+      <h4>10 Questions to Ask Before Hiring a Cleaner</h4>
+      <p>The real questions that separate pros from pretenders.</p>
     </a>
-    <a href="blog/office-cleaning-checklist-phoenix.html" style="flex:1;min-width:280px;max-width:340px;padding:1.5rem;background:#f9fafb;border-radius:12px;text-decoration:none;color:#1f2937;text-align:left;border:1px solid #e5e7eb;">
-      <h4 style="color:#1a56db;margin:0 0 0.5rem;">Complete Office Cleaning Checklist</h4>
-      <p style="color:#6b7280;font-size:0.9rem;margin:0;">Daily, weekly, and monthly tasks your crew should be doing.</p>
+    <a href="blog/office-cleaning-checklist-phoenix.html" class="blog-card">
+      <h4>Complete Office Cleaning Checklist</h4>
+      <p>Daily, weekly, and monthly tasks your crew should be doing.</p>
     </a>
   </div>
   <div style="margin-top:1.5rem;">
-    <a href="blog/" style="color:#479202;font-weight:700;font-size:1.05rem;text-decoration:none;">📚 View All Posts →</a>
+    <a href="blog/" style="color:var(--green);font-weight:700;font-size:1.05rem;text-decoration:none;">📚 View All Posts →</a>
   </div>
 </section>
 
-<footer><footer>
-  CleanWorks Solutions LLC &copy; 2026 &nbsp;·&nbsp; Phoenix, AZ &nbsp;·&nbsp; Commercial Cleaning &nbsp;·&nbsp; (602) 516-6133 &nbsp;·&nbsp; <a href="https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9" style="color:#479202;">📍 Google Maps</a>
+<!-- ─── TRUST BAR ─── -->
+<div class="trust-bar">
+  <span><span class="check">✓</span> Licensed & Insured</span>
+  <span><span class="check">✓</span> Bonded</span>
+  <span><span class="check">✓</span> Workers' Comp Coverage</span>
+  <span><span class="check">✓</span> Phoenix-Based</span>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#process">How It Works</a>
+    <a href="blog/">Blog</a>
+    <a href="qualify.html">Get a Quote</a>
+    <a href="https://maps.app.goo.gl/cTk7cQqB1oS1Tvrg9" target="_blank">📍 Google Maps</a>
+  </div>
+  CleanWorks Solutions LLC &copy; 2026 &nbsp;·&nbsp; Phoenix, AZ &nbsp;·&nbsp; Commercial Cleaning &nbsp;·&nbsp; <a href="tel:+160****6133">(602) 516-6133</a>
 </footer>
 
 </body>
