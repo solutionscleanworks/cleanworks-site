@@ -405,50 +405,6 @@
     .promise-item h4 { color: var(--green-bright); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem; }
     .promise-item p { color: var(--gray-400); font-size: 0.9rem; line-height: 1.6; }
 
-    /* ─── BEFORE / AFTER ─── */
-    .before-after-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .ba-card {
-      border-radius: 14px;
-      overflow: hidden;
-      position: relative;
-      min-height: 280px;
-      display: flex;
-      align-items: flex-end;
-    }
-    .ba-card .label {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 0.35rem 0.9rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .ba-card .overlay {
-      padding: 1.5rem;
-      color: white;
-      width: 100%;
-      background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    }
-    .ba-card .overlay p { font-size: 0.9rem; opacity: 0.9; }
-    .ba-before {
-      background: linear-gradient(135deg, #4a4a4a, #6b7280);
-    }
-    .ba-after {
-      background: linear-gradient(135deg, var(--green), var(--green-bright));
-    }
-    .ba-before .label { background: rgba(220,38,38,0.85); }
-    .ba-after .label { background: var(--green); }
-
     /* ─── REVIEWS ─── */
     .review-wrap {
       background: var(--white);
@@ -585,7 +541,6 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       .process-grid { grid-template-columns: 1fr; }
-      .before-after-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -773,28 +728,6 @@
     </div>
   </div>
 </div>
-
-<!-- ─── BEFORE / AFTER ─── -->
-<section>
-  <h2 class="section-title">The Difference Is Clear</h2>
-  <p class="section-sub">What you see is what you get. No shortcuts, no corners cut.</p>
-  <div class="before-after-grid">
-    <div class="ba-card ba-before">
-      <div class="label">Before</div>
-      <div class="overlay">
-        <h4>Unattended spaces</h4>
-        <p>Dust buildup, missed corners, inconsistent cleaning. The kind of "good enough" that isn't.</p>
-      </div>
-    </div>
-    <div class="ba-card ba-after">
-      <div class="label">After</div>
-      <div class="overlay">
-        <h4>CleanWorks standard</h4>
-        <p>Thorough, consistent, every visit. Your space looks and feels clean — not just "looks clean."</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ─── GOOGLE REVIEWS ─── -->
 <div class="review-wrap">
