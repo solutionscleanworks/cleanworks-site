@@ -1,0 +1,56 @@
+{
+  "company": {
+    "legal_name": "CleanWorks Solutions LLC",
+    "dba": "CleanWorks Solutions",
+    "address": "",
+    "city": "Phoenix",
+    "state": "AZ",
+    "zip": "",
+    "phone": "602-516-6133",
+    "email": "CleanWorks.solutions1@gmail.com",
+    "website": "https://solutionscleanworks.github.io/cleanworks-site"
+  },
+  "owner": {
+    "name": "Nima Hosseini",
+    "title": "Founder",
+    "phone": "602-516-6133",
+    "email": "CleanWorks.solutions1@gmail.com"
+  },
+  "services": [
+    "Commercial Office Cleaning",
+    "Medical Facility / Clinic Cleaning",
+    "Law Firm Cleaning",
+    "School / Educational Facility Cleaning",
+    "Insurance Agency Cleaning",
+    "Retail / Commercial Space Cleaning",
+    "Floor care (stripping, waxing, buffing)",
+    "Janitorial services",
+    "Green / eco-friendly cleaning"
+  ],
+  "service_area": [
+    "Phoenix Metro",
+    "Scottsdale",
+    "Paradise Valley",
+    "Glendale",
+    "Peoria",
+    "Goodyear",
+    "Mesa",
+    "Tempe",
+    "Chandler",
+    "Gilbert",
+    "Surprise",
+    "Litchfield Park",
+    "Avondale",
+    "Buckeye"
+  ],
+  "naics_codes": [
+    "561720",
+    "561740",
+    "561790"
+  ],
+  "certifications": {
+    "insured": true,
+    "bonded": null,
+    "licensed": true
+  }
+}
