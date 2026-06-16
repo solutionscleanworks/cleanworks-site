@@ -363,18 +363,18 @@
       </div>
       <div class="rate-editor" id="rateEditor">
 
-        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly cleaning (per sq ft)</div>
+        <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly rate (daily service, per sq ft)</div>
         <div class="row">
-          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.001" value="0.060"></div>
-          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.001" value="0.085"></div>
+          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="1.50"></div>
+          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="2.20"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.001" value="0.065"></div>
-          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.001" value="0.095"></div>
+          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.01" value="1.60"></div>
+          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.01" value="1.80"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.001" value="0.055"></div>
-          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.001" value="0.065"></div>
+          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="1.20"></div>
+          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="1.40"></div>
         </div>
 
         <div style="font-size:0.75rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
@@ -433,14 +433,14 @@
 
     function getBaseRate(biz) {
       const map = {
-        office:   parseFloat(document.getElementById('rOffice').value) || 0.060,
-        medical:  parseFloat(document.getElementById('rMedical').value) || 0.085,
-        school:   parseFloat(document.getElementById('rSchool').value) || 0.065,
-        retail:   parseFloat(document.getElementById('rRetail').value) || 0.095,
-        industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.055,
-        other:    parseFloat(document.getElementById('rOther').value) || 0.065,
+        office:   parseFloat(document.getElementById('rOffice').value) || 1.50,
+        medical:  parseFloat(document.getElementById('rMedical').value) || 2.20,
+        school:   parseFloat(document.getElementById('rSchool').value) || 1.60,
+        retail:   parseFloat(document.getElementById('rRetail').value) || 1.80,
+        industrial: parseFloat(document.getElementById('rIndustrial').value) || 1.20,
+        other:    parseFloat(document.getElementById('rOther').value) || 1.40,
       };
-      return map[biz] || 0.065;
+      return map[biz] || 1.40;
     }
 
     function getBizLabel(biz) {
@@ -492,7 +492,7 @@
 
       // Monthly janitorial
       if (activeServices.has('janitorial')) {
-        let monthly = sqft * baseRate * volMult;
+        let monthly = sqft * baseRate * (freq / 5) * volMult;
         let label = 'Daily cleaning — ' + bizLabel + ', ' + freq + 'x/wk';
         if (isAfterHours) {
           monthly *= afterPrem;
@@ -502,7 +502,7 @@
         grandTotal += display;
         items.push({
           label: label,
-          sub: '$' + (sqft * baseRate * volMult).toFixed(2) + '/mo' + (isAfterHours ? ' × ' + afterPrem.toFixed(2) + ' after-hrs prem' : ''),
+          sub: '$' + Math.round(sqft * baseRate / 5 * freq).toLocaleString() + '/mo' + (isAfterHours ? ' × ' + afterPrem.toFixed(2) + ' after-hrs prem' : ''),
           price: formatPrice(display) + ' <span class="freq">/month</span>'
         });
       }
