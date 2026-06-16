@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CleanWorks — Pricing Calculator & Quote Generator</title>
+  <title>CleanWorks — Pricing Calculator & Proposal Generator</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -14,310 +14,87 @@
       padding: 16px;
       padding-bottom: 40px;
     }
-    .container {
-      max-width: 520px;
-      margin: 0 auto;
-    }
-    .header {
-      text-align: center;
-      padding: 20px 0 16px;
-    }
-    .header h1 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #479202;
-      letter-spacing: -0.3px;
-    }
-    .header p {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-    .header .install-note {
-      margin-top: 8px;
-      font-size: 0.7rem;
-      color: #9ca3af;
-    }
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      margin-bottom: 14px;
-    }
-    .card h2 {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #374151;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card h2 .step {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      background: #479202;
-      color: white;
-      border-radius: 50%;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-    .form-group {
-      margin-bottom: 14px;
-    }
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #4b5563;
-      margin-bottom: 5px;
-    }
+    .container { max-width: 520px; margin: 0 auto; }
+
+    .header { text-align: center; padding: 20px 0 16px; }
+    .header h1 { font-size: 1.1rem; font-weight: 700; color: #479202; letter-spacing: -0.3px; }
+    .header p { font-size: 0.85rem; color: #6b7280; margin-top: 4px; }
+    .header .install-note { margin-top: 8px; font-size: 0.7rem; color: #9ca3af; }
+
+    .card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 14px; }
+    .card h2 { font-size: 0.92rem; font-weight: 700; color: #374151; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .card h2 .step { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: #479202; color: white; border-radius: 50%; font-size: 0.72rem; font-weight: 700; }
+
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 0.8rem; font-weight: 500; color: #4b5563; margin-bottom: 5px; }
     input, select, textarea {
-      width: 100%;
-      padding: 11px 13px;
-      font-size: 0.95rem;
-      border: 1.5px solid #d1d5db;
-      border-radius: 10px;
-      background: white;
-      -webkit-appearance: none;
-      appearance: none;
-      transition: border-color 0.2s;
-      font-family: inherit;
+      width: 100%; padding: 11px 13px; font-size: 0.95rem; border: 1.5px solid #d1d5db; border-radius: 10px;
+      background: white; -webkit-appearance: none; appearance: none; transition: border-color 0.2s; font-family: inherit;
     }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #479202;
-      box-shadow: 0 0 0 3px rgba(71,146,2,0.12);
-    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #479202; box-shadow: 0 0 0 3px rgba(71,146,2,0.12); }
     textarea { resize: vertical; min-height: 60px; }
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 36px;
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px;
     }
-    .input-with-icon {
-      position: relative;
-    }
-    .input-with-icon .suffix {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9ca3af;
-      font-size: 0.85rem;
-      font-weight: 500;
-      pointer-events: none;
-    }
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .btn {
-      width: 100%;
-      padding: 13px;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.15s;
-      text-align: center;
-    }
-    .btn-primary {
-      background: #479202;
-      color: white;
-    }
-    .btn-primary:active {
-      background: #3a7a02;
-      transform: scale(0.98);
-    }
-    .btn-secondary {
-      background: white;
-      color: #479202;
-      border: 2px solid #479202;
-    }
-    .btn-secondary:active {
-      background: #f0f7eb;
-      transform: scale(0.98);
-    }
+    .input-with-icon { position: relative; }
+    .input-with-icon .suffix { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem; font-weight: 500; pointer-events: none; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .btn { width: 100%; padding: 13px; font-size: 1rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .btn-primary { background: #479202; color: white; }
+    .btn-primary:active { background: #3a7a02; transform: scale(0.98); }
+    .btn-secondary { background: white; color: #479202; border: 2px solid #479202; }
+    .btn-secondary:active { background: #f0f7eb; transform: scale(0.98); }
+
     .results { display: none; }
     .results.show { display: block; }
-    .result-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 12px 0;
-      border-bottom: 1px solid #f3f4f6;
-    }
+    .result-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
     .result-item:last-child { border-bottom: none; }
-    .result-item .label {
-      font-size: 0.88rem;
-      color: #374151;
-      flex: 1;
-    }
-    .result-item .label .sub {
-      display: block;
-      font-size: 0.73rem;
-      color: #9ca3af;
-      margin-top: 2px;
-    }
-    .result-item .price {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1f2937;
-      text-align: right;
-      white-space: nowrap;
-      margin-left: 12px;
-    }
-    .result-item .price .freq {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 400;
-      color: #9ca3af;
-      text-align: right;
-    }
-    .total-box {
-      background: #f0f7eb;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-top: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .total-box .label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: #374151;
-    }
-    .total-box .price {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #479202;
-    }
-    .disclaimer {
-      text-align: center;
-      font-size: 0.73rem;
-      color: #9ca3af;
-      padding-top: 10px;
-      line-height: 1.5;
-    }
-    .placeholder {
-      text-align: center;
-      padding: 20px 0;
-      color: #9ca3af;
-      font-size: 0.85rem;
-    }
-    .toggle-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .result-item .label { font-size: 0.88rem; color: #374151; flex: 1; }
+    .result-item .label .sub { display: block; font-size: 0.73rem; color: #9ca3af; margin-top: 2px; }
+    .result-item .price { font-size: 1.1rem; font-weight: 700; color: #1f2937; text-align: right; white-space: nowrap; margin-left: 12px; }
+    .result-item .price .freq { display: block; font-size: 0.68rem; font-weight: 400; color: #9ca3af; text-align: right; }
+    .total-box { background: #f0f7eb; border-radius: 10px; padding: 14px 16px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .total-box .label { font-size: 0.88rem; font-weight: 600; color: #374151; }
+    .total-box .price { font-size: 1.3rem; font-weight: 800; color: #479202; }
+    .disclaimer { text-align: center; font-size: 0.73rem; color: #9ca3af; padding-top: 10px; line-height: 1.5; }
+    .placeholder { text-align: center; padding: 20px 0; color: #9ca3af; font-size: 0.85rem; }
+
+    .toggle-group { display: flex; flex-wrap: wrap; gap: 8px; }
     .toggle-btn {
-      flex: 1;
-      min-width: calc(50% - 4px);
-      padding: 9px 6px;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: #6b7280;
+      flex: 1; min-width: calc(50% - 4px); padding: 9px 6px; text-align: center; font-size: 0.8rem;
+      font-weight: 500; border: 1.5px solid #d1d5db; border-radius: 8px; background: white;
+      cursor: pointer; transition: all 0.15s; color: #6b7280;
     }
-    .toggle-btn.active {
-      border-color: #479202;
-      background: #f0f7eb;
-      color: #479202;
-      font-weight: 600;
-    }
-    .footer {
-      text-align: center;
-      padding: 12px 0;
-    }
-    .footer a {
-      color: #479202;
-      font-size: 0.82rem;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .service-toggles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .toggle-btn.active { border-color: #479202; background: #f0f7eb; color: #479202; font-weight: 600; }
+    .service-toggles { display: flex; flex-wrap: wrap; gap: 8px; }
     .service-btn {
-      padding: 8px 14px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      border: 1.5px solid #d1d5db;
-      border-radius: 20px;
-      background: white;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: #6b7280;
+      padding: 8px 14px; font-size: 0.78rem; font-weight: 500; border: 1.5px solid #d1d5db;
+      border-radius: 20px; background: white; cursor: pointer; transition: all 0.15s; color: #6b7280;
     }
-    .service-btn.active {
-      border-color: #479202;
-      background: #f0f7eb;
-      color: #479202;
-      font-weight: 600;
-    }
+    .service-btn.active { border-color: #479202; background: #f0f7eb; color: #479202; font-weight: 600; }
+
     .rate-editor { display: none; margin-top: 12px; }
     .rate-editor.open { display: block; }
     .rate-editor .form-group { margin-bottom: 8px; }
     .rate-editor label { font-size: 0.75rem; }
     .rate-editor input { padding: 8px 10px; font-size: 0.9rem; }
-    .note {
-      margin-top: 10px;
-      padding: 12px;
-      background: #fefce8;
-      border-radius: 8px;
-      font-size: 0.76rem;
-      color: #92400e;
-      line-height: 1.5;
-      display: none;
-    }
+    .note { margin-top: 10px; padding: 12px; background: #fefce8; border-radius: 8px; font-size: 0.76rem; color: #92400e; line-height: 1.5; display: none; }
     .note.show { display: block; }
-    .summary-line {
-      font-size: 0.8rem;
-      color: #6b7280;
-      margin-top: 8px;
-      line-height: 1.6;
-    }
-    .btn-space {
-      margin-top: 10px;
-    }
-    .section-divider {
-      text-align: center;
-      color: #d1d5db;
-      font-size: 0.75rem;
-      margin: 4px 0 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-divider::before,
-    .section-divider::after {
-      content: '';
-      flex: 1;
-      border-top: 1px solid #e5e7eb;
-    }
+    .summary-line { font-size: 0.8rem; color: #6b7280; margin-top: 8px; line-height: 1.6; }
+    .btn-space { margin-top: 10px; }
+    .footer { text-align: center; padding: 12px 0; }
+    .footer a { color: #479202; font-size: 0.82rem; text-decoration: none; font-weight: 500; }
+
+    .textarea-input { resize: vertical; min-height: 70px; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>🧹 CleanWorks Solutions</h1>
-      <p>Pricing Calculator &amp; Quote Generator</p>
+      <p>Pricing Calculator &amp; Proposal Generator</p>
       <div class="install-note">📲 Tap Share → Add to Home Screen to use as app</div>
     </div>
 
@@ -326,70 +103,66 @@
       <h2><span class="step">1</span> Client Information</h2>
       <div class="row">
         <div class="form-group">
-          <label for="cCompany">Company Name</label>
-          <input type="text" id="cCompany" placeholder="e.g. Smith & Associates">
+          <label>Company Name</label>
+          <input type="text" id="cCompany" placeholder="e.g. ACE Hardware">
         </div>
         <div class="form-group">
-          <label for="cContact">Contact Person</label>
-          <input type="text" id="cContact" placeholder="e.g. John Smith">
+          <label>Location</label>
+          <input type="text" id="cLocation" placeholder="e.g. Howard's Ace Hardware">
         </div>
       </div>
       <div class="row">
         <div class="form-group">
-          <label for="cPhone">Phone</label>
-          <input type="tel" id="cPhone" placeholder="(602) 555-0123">
+          <label>Contact Person</label>
+          <input type="text" id="cContact" placeholder="e.g. Mr. Corey Lee">
         </div>
         <div class="form-group">
-          <label for="cEmail">Email</label>
-          <input type="email" id="cEmail" placeholder="john@smith.com">
+          <label>Phone</label>
+          <input type="tel" id="cPhone" placeholder="(602) 555-0123">
         </div>
       </div>
       <div class="form-group">
-        <label for="cAddress">Billing Address</label>
+        <label>Billing Address</label>
         <input type="text" id="cAddress" placeholder="Street, City, State, ZIP">
       </div>
       <div class="form-group">
-        <label for="cFacility">Facility Address (if different)</label>
-        <input type="text" id="cFacility" placeholder="Street, City, State, ZIP">
+        <label>Facility Overview (describe the space for the proposal)</label>
+        <textarea id="cOverview" rows="3" placeholder="e.g. Retail store of approximately 7,000-8,000 sq ft. Primary surface is VCT flooring. Restrooms are excluded from scope."></textarea>
       </div>
     </div>
 
     <!-- STEP 2: SPACE DETAILS -->
     <div class="card">
       <h2><span class="step">2</span> Space Details</h2>
-
       <div class="form-group">
-        <label for="sqft">Square Footage</label>
+        <label>Square Footage</label>
         <div class="input-with-icon">
-          <input type="number" id="sqft" inputmode="numeric" placeholder="e.g. 2500">
+          <input type="number" id="sqft" inputmode="numeric" placeholder="e.g. 7500">
           <span class="suffix">sq ft</span>
         </div>
       </div>
-
       <div class="form-group">
         <label>Type of Business</label>
         <div class="toggle-group" id="bizType">
-          <div class="toggle-btn active" data-biz="office" onclick="setBiz(this,'office')">Office</div>
+          <div class="toggle-btn" data-biz="office" onclick="setBiz(this,'office')">Office</div>
           <div class="toggle-btn" data-biz="medical" onclick="setBiz(this,'medical')">Medical</div>
           <div class="toggle-btn" data-biz="school" onclick="setBiz(this,'school')">School</div>
-          <div class="toggle-btn" data-biz="retail" onclick="setBiz(this,'retail')">Retail</div>
+          <div class="toggle-btn active" data-biz="retail" onclick="setBiz(this,'retail')">Retail</div>
           <div class="toggle-btn" data-biz="industrial" onclick="setBiz(this,'industrial')">Industrial</div>
           <div class="toggle-btn" data-biz="other" onclick="setBiz(this,'other')">Other</div>
         </div>
       </div>
-
       <div class="form-group">
-        <label for="frequency">Cleaning Frequency</label>
+        <label>Cleaning Frequency</label>
         <select id="frequency">
           <option value="5">5x / week — Daily</option>
-          <option value="3">3x / week — Standard</option>
+          <option value="3" selected>3x / week — Standard</option>
           <option value="2">2x / week — Light</option>
           <option value="1">1x / week — Weekly</option>
         </select>
       </div>
-
       <div class="form-group">
-        <label for="hours">Cleaning Time</label>
+        <label>Cleaning Time</label>
         <select id="hours">
           <option value="regular">During business hours</option>
           <option value="after">After hours / Early morning (+25%)</option>
@@ -397,19 +170,22 @@
       </div>
     </div>
 
-    <!-- STEP 3: SERVICES -->
+    <!-- STEP 3: SCOPE -->
     <div class="card">
-      <h2><span class="step">3</span> Services</h2>
+      <h2><span class="step">3</span> Scope of Work</h2>
+      <p style="font-size:0.8rem;color:#6b7280;margin-bottom:12px;">Select the services to include in this proposal:</p>
       <div class="service-toggles" id="services">
         <div class="service-btn active" data-svc="janitorial" onclick="toggleSvc(this)">🧹 Daily Cleaning</div>
+        <div class="service-btn active" data-svc="trash" onclick="toggleSvc(this)">🗑️ Trash Removal</div>
         <div class="service-btn" data-svc="wax" onclick="toggleSvc(this)">✨ Strip & Wax</div>
         <div class="service-btn" data-svc="carpet" onclick="toggleSvc(this)">🧺 Carpet Wash</div>
         <div class="service-btn" data-svc="windows" onclick="toggleSvc(this)">🪟 Windows</div>
         <div class="service-btn" data-svc="deep" onclick="toggleSvc(this)">🔬 Deep Clean</div>
         <div class="service-btn" data-svc="move" onclick="toggleSvc(this)">📦 Move In/Out</div>
+        <div class="service-btn active" data-svc="floor" onclick="toggleSvc(this)">🔄 Floor Care</div>
       </div>
 
-      <button class="btn btn-primary" onclick="calculate()" style="margin-top:14px;">Get Price →</button>
+      <button class="btn btn-primary" onclick="calculate()" style="margin-top:14px;">Generate Proposal →</button>
     </div>
 
     <!-- ESTIMATE RESULTS -->
@@ -418,16 +194,16 @@
         <h2>📋 Estimate</h2>
         <div id="estimateItems"></div>
         <div class="total-box" id="totalBox">
-          <span class="label">Estimated Monthly Total</span>
+          <span class="label">Monthly Rate</span>
           <span class="price" id="totalPrice">$0</span>
         </div>
         <div class="summary-line" id="summaryLine"></div>
         <div class="note" id="note"></div>
         <div class="disclaimer">
-          Estimate only. Final price confirmed after on-site walkthrough.<br>
+          Pricing based on scope above. Final rate confirmed after on-site walkthrough.<br>
           📞 <strong>(602) 516-6133</strong>
         </div>
-        <button class="btn btn-secondary btn-space" onclick="generateQuote()">📄 Generate Formal Quote →</button>
+        <button class="btn btn-secondary btn-space" onclick="generateQuote()">📄 Generate Formal Proposal →</button>
         <button class="btn btn-secondary btn-space" onclick="calculate()" style="border-color:#d1d5db;color:#6b7280;font-size:0.85rem;padding:8px;">🔄 Recalculate</button>
       </div>
     </div>
@@ -441,27 +217,27 @@
       <div class="rate-editor" id="rateEditor">
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Monthly rate (daily service, per sq ft)</div>
         <div class="row">
-          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="1.50"></div>
-          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="2.20"></div>
+          <div class="form-group"><label>Office</label><input type="number" id="rOffice" step="0.01" value="0.25"></div>
+          <div class="form-group"><label>Medical</label><input type="number" id="rMedical" step="0.01" value="0.35"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.01" value="1.60"></div>
-          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.01" value="1.80"></div>
+          <div class="form-group"><label>School</label><input type="number" id="rSchool" step="0.01" value="0.22"></div>
+          <div class="form-group"><label>Retail</label><input type="number" id="rRetail" step="0.01" value="0.29"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="1.20"></div>
-          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="1.40"></div>
+          <div class="form-group"><label>Industrial</label><input type="number" id="rIndustrial" step="0.01" value="0.18"></div>
+          <div class="form-group"><label>Other</label><input type="number" id="rOther" step="0.01" value="0.22"></div>
         </div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">After-hours premium</div>
         <div class="form-group"><input type="number" id="afterHoursPrem" step="0.01" value="1.25" style="width:100px;"></div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">One-time services (per sq ft)</div>
         <div class="row">
-          <div class="form-group"><label>Strip &amp; Wax</label><input type="number" id="rWax" step="0.01" value="0.30"></div>
-          <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.20"></div>
+          <div class="form-group"><label>Strip &amp; Wax</label><input type="number" id="rWax" step="0.01" value="0.35"></div>
+          <div class="form-group"><label>Carpet Wash</label><input type="number" id="rCarpet" step="0.01" value="0.25"></div>
         </div>
         <div class="row">
-          <div class="form-group"><label>Windows</label><input type="number" id="rWindows" step="0.01" value="0.08"></div>
-          <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.15"></div>
+          <div class="form-group"><label>Windows</label><input type="number" id="rWindows" step="0.01" value="5.00"></div>
+          <div class="form-group"><label>Deep Clean</label><input type="number" id="rDeep" step="0.01" value="0.20"></div>
         </div>
         <div class="form-group"><label>Move In/Out (flat fee)</label><input type="number" id="rMove" step="10" value="500"></div>
         <div style="font-size:0.73rem; font-weight:600; color:#6b7280; margin:12px 0 6px;">Volume discount</div>
@@ -478,8 +254,8 @@
   </div>
 
   <script>
-    let selectedBiz = 'office';
-    let activeServices = new Set(['janitorial']);
+    let selectedBiz = 'retail';
+    let activeServices = new Set(['janitorial', 'trash', 'floor']);
     let lastCalc = null;
 
     function setBiz(el, type) {
@@ -490,11 +266,6 @@
 
     function toggleSvc(el) {
       const svc = el.dataset.svc;
-      if (svc === 'janitorial') {
-        el.classList.add('active');
-        activeServices.add('janitorial');
-        return;
-      }
       if (activeServices.has(svc)) {
         activeServices.delete(svc);
         el.classList.remove('active');
@@ -506,39 +277,38 @@
 
     function getBaseRate(biz) {
       const map = {
-        office:   parseFloat(document.getElementById('rOffice').value) || 1.50,
-        medical:  parseFloat(document.getElementById('rMedical').value) || 2.20,
-        school:   parseFloat(document.getElementById('rSchool').value) || 1.60,
-        retail:   parseFloat(document.getElementById('rRetail').value) || 1.80,
-        industrial: parseFloat(document.getElementById('rIndustrial').value) || 1.20,
-        other:    parseFloat(document.getElementById('rOther').value) || 1.40,
+        office:     parseFloat(document.getElementById('rOffice').value) || 0.25,
+        medical:    parseFloat(document.getElementById('rMedical').value) || 0.35,
+        school:     parseFloat(document.getElementById('rSchool').value) || 0.22,
+        retail:     parseFloat(document.getElementById('rRetail').value) || 0.29,
+        industrial: parseFloat(document.getElementById('rIndustrial').value) || 0.18,
+        other:      parseFloat(document.getElementById('rOther').value) || 0.22,
       };
-      return map[biz] || 1.40;
+      return map[biz] || 0.22;
     }
 
     function getBizLabel(biz) {
       const map = {
-        office: 'Office', medical: 'Medical/Dental',
-        school: 'School/Daycare', retail: 'Retail',
-        industrial: 'Industrial/Warehouse', other: 'Other'
+        office: 'Office', medical: 'Medical/Dental', school: 'School/Daycare',
+        retail: 'Retail', industrial: 'Industrial/Warehouse', other: 'Other'
       };
       return map[biz] || biz;
     }
 
-    function getBizLabelLong(biz) {
+    function getBizLong(biz) {
       const map = {
-        office: 'Commercial Office Cleaning',
-        medical: 'Medical & Dental Facility Cleaning',
-        school: 'School & Daycare Cleaning',
-        retail: 'Retail Space Cleaning',
-        industrial: 'Industrial & Warehouse Cleaning',
-        other: 'Commercial Cleaning Services'
+        office: 'an Office', medical: 'a Medical/Dental', school: 'a School/Daycare',
+        retail: 'a Retail', industrial: 'an Industrial/Warehouse', other: 'a Commercial'
       };
-      return map[biz] || 'Commercial Cleaning Services';
+      return map[biz] || 'a Commercial';
     }
 
     function getFreqLabel(n) {
-      return {1:'Weekly (1x/week)', 2:'Light Cleaning (2x/week)', 3:'Standard (3x/week)', 5:'Daily (5x/week)'}[n] || n + 'x/week';
+      return {1:'Weekly (1x/week)', 2:'Light Cleaning (2x/week)', 3:'Standard Plan (3x/week)', 5:'Daily (5x/week)'}[n] || n + 'x/week';
+    }
+
+    function getFreqShort(n) {
+      return {1:'1x per week', 2:'2x per week', 3:'3x per week', 5:'5x per week'}[n] || n + 'x per week';
     }
 
     function formatPrice(n) {
@@ -547,6 +317,52 @@
 
     function val(id) {
       return (document.getElementById(id).value || '').trim();
+    }
+
+    function getScopeItems() {
+      let items = [];
+      const svcLabels = {
+        janitorial: 'Sweep all floor areas',
+        trash: 'Empty trash and replace liners',
+        floor: 'Damp mop with neutral cleaner / Auto-scrub floors',
+        wax: 'Strip and wax VCT flooring — quoted separately',
+        carpet: 'Carpet extraction cleaning',
+        windows: 'Window cleaning (interior)',
+        deep: 'Deep cleaning services',
+        move: 'Move in/out clean'
+      };
+      if (activeServices.has('janitorial')) items.push({ task: svcLabels.janitorial, freq: 'Each service' });
+      if (activeServices.has('trash')) items.push({ task: svcLabels.trash, freq: 'Each service' });
+      if (activeServices.has('floor')) items.push({ task: 'Auto-scrub floors with rotary machine', freq: '2x per week' });
+      if (activeServices.has('janitorial')) items.push({ task: 'Spot clean spills and tracked-in dirt', freq: 'Each service' });
+      if (activeServices.has('floor')) items.push({ task: 'Buff/high-speed burnish high-traffic areas', freq: '1x per month' });
+      if (activeServices.has('janitorial')) items.push({ task: 'Dust shelves, ledges, and display racks', freq: '1x per week' });
+      if (activeServices.has('janitorial')) items.push({ task: 'Spot clean entrance glass', freq: 'Each service' });
+      if (activeServices.has('janitorial')) items.push({ task: 'Clean and organize janitorial closet', freq: 'Each service' });
+      if (activeServices.has('janitorial')) items.push({ task: 'Walk-through inspection, report hazards or concerns', freq: 'Each service' });
+      if (activeServices.has('wax')) items.push({ task: svcLabels.wax, freq: 'As needed' });
+      if (activeServices.has('carpet')) items.push({ task: svcLabels.carpet, freq: 'As needed' });
+      if (activeServices.has('windows')) items.push({ task: svcLabels.windows, freq: 'As needed' });
+      if (activeServices.has('deep')) items.push({ task: svcLabels.deep, freq: 'As needed' });
+      if (activeServices.has('move')) items.push({ task: svcLabels.move, freq: 'One-time' });
+      return items;
+    }
+
+    function getSvcPrice(sqft, svcKey) {
+      const rates = {
+        wax:     parseFloat(document.getElementById('rWax').value) || 0.35,
+        carpet:  parseFloat(document.getElementById('rCarpet').value) || 0.25,
+        windows: parseFloat(document.getElementById('rWindows').value) || 5.00,
+        deep:    parseFloat(document.getElementById('rDeep').value) || 0.20,
+        move:    parseFloat(document.getElementById('rMove').value) || 500,
+        floor:   0,
+        trash:   0,
+        janitorial: 0
+      };
+      if (svcKey === 'move') return rates.move;
+      if (svcKey === 'windows') return rates.windows * Math.ceil(sqft / 100);
+      if (rates[svcKey]) return Math.round(sqft * rates[svcKey]);
+      return 0;
     }
 
     function calculate() {
@@ -565,19 +381,14 @@
       if (!sqft || sqft < 100) {
         res.classList.add('show');
         event.innerHTML = '<div class="placeholder">Enter square footage above</div>';
-        totalEl.textContent = '$0';
-        summary.textContent = '';
-        note.classList.remove('show');
-        lastCalc = null;
-        return;
+        totalEl.textContent = '$0'; summary.textContent = ''; note.classList.remove('show');
+        lastCalc = null; return;
       }
 
       const baseRate = getBaseRate(selectedBiz);
       const discLarge = parseFloat(document.getElementById('discLarge').value) || 0.95;
       const discXLarge = parseFloat(document.getElementById('discXLarge').value) || 0.90;
-      let volumeNote = '';
-      let volumePct = 0;
-
+      let volumeNote = '', volumePct = 0;
       let volMult = 1;
       if (sqft >= 25000) { volMult = discXLarge; volumeNote = '(25K+ sq ft discount)'; volumePct = Math.round((1 - discXLarge) * 100); }
       else if (sqft >= 10000) { volMult = discLarge; volumeNote = '(10K+ sq ft discount)'; volumePct = Math.round((1 - discLarge) * 100); }
@@ -585,79 +396,50 @@
       let items = [];
       let grandTotal = 0;
 
-      if (activeServices.has('janitorial')) {
-        let monthly = sqft * baseRate * (freq / 5) * volMult;
-        let label = bizLabel + ', ' + freq + 'x/week';
-        if (isAfterHours) {
-          monthly *= afterPrem;
-          label += ' (after hours)';
-        }
-        const display = Math.round(monthly);
-        grandTotal += display;
-        items.push({
-          label: 'Daily Cleaning Service',
-          sub: label + (volumeNote ? ' · ' + volumeNote : ''),
-          price: formatPrice(display) + ' <span class="freq">/month</span>',
-          type: 'monthly'
-        });
-      }
+      // Core monthly service
+      let monthly = sqft * baseRate * (freq / 5) * volMult;
+      if (isAfterHours) monthly *= afterPrem;
+      const monthlyDisplay = Math.round(monthly);
+      grandTotal += monthlyDisplay;
+      items.push({
+        label: bizLabel + ' Cleaning — ' + getFreqShort(freq),
+        sub: sqft.toLocaleString() + ' sq ft' + (isAfterHours ? ' · after hours' : '') + (volumeNote ? ' · ' + volumeNote : ''),
+        price: formatPrice(monthlyDisplay) + ' <span class="freq">/month</span>',
+        type: 'monthly'
+      });
 
-      const svcs = {
-        wax: { rateId: 'rWax', name: 'Strip & Wax' },
-        carpet: { rateId: 'rCarpet', name: 'Carpet Wash' },
-        windows: { rateId: 'rWindows', name: 'Window Cleaning' },
-        deep: { rateId: 'rDeep', name: 'Deep Clean' },
-      };
-
-      for (const [key, svc] of Object.entries(svcs)) {
+      // Extra paid services
+      const paidSvcs = { wax: 'Strip & Wax', carpet: 'Carpet Wash', windows: 'Window Cleaning', deep: 'Deep Clean', move: 'Move In/Out' };
+      for (const [key, name] of Object.entries(paidSvcs)) {
         if (activeServices.has(key)) {
-          const rate = parseFloat(document.getElementById(svc.rateId).value) || 0;
-          const total = Math.round(sqft * rate);
+          const total = getSvcPrice(sqft, key);
           grandTotal += total;
           items.push({
-            label: svc.name,
-            sub: sqft.toLocaleString() + ' sq ft @ $' + rate.toFixed(2) + '/sqft',
+            label: name,
+            sub: key === 'move' ? 'Flat rate' : sqft.toLocaleString() + ' sq ft',
             price: formatPrice(total) + ' <span class="freq">one-time</span>',
             type: 'onetime'
           });
         }
       }
 
-      if (activeServices.has('move')) {
-        const moveFee = parseFloat(document.getElementById('rMove').value) || 500;
-        grandTotal += moveFee;
-        items.push({
-          label: 'Move In/Out Clean',
-          sub: 'Flat rate',
-          price: formatPrice(moveFee) + ' <span class="freq">one-time</span>',
-          type: 'onetime'
-        });
-      }
-
       let html = '';
       for (const item of items) {
         html += '<div class="result-item">';
         html += '<div><span class="label">' + item.label + '</span><span class="sub">' + item.sub + '</span></div>';
-        html += '<div class="price">' + item.price + '</div>';
-        html += '</div>';
+        html += '<div class="price">' + item.price + '</div></div>';
       }
       event.innerHTML = html;
 
       if (items.length === 0) {
         event.innerHTML = '<div class="placeholder">Select at least one service</div>';
-        totalEl.textContent = '$0';
-        summary.textContent = '';
-        lastCalc = null;
-        return;
+        totalEl.textContent = '$0'; summary.textContent = ''; lastCalc = null; return;
       }
 
-      totalEl.textContent = formatPrice(grandTotal);
+      totalEl.textContent = formatPrice(grandTotal) + '/mo';
 
-      let summaryParts = [];
-      summaryParts.push(sqft.toLocaleString() + ' sq ft');
-      summaryParts.push(bizLabel);
+      let summaryParts = [sqft.toLocaleString() + ' sq ft', bizLabel, getFreqShort(freq)];
       if (isAfterHours) summaryParts.push('after hours');
-      summaryParts.push(freq + 'x/week');
       summary.textContent = summaryParts.join(' · ') + (volumeNote ? ' · ' + volumeNote : '');
 
       note.classList.remove('show');
@@ -668,12 +450,7 @@
       res.classList.add('show');
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      lastCalc = {
-        sqft, freq, isAfterHours, biz: selectedBiz,
-        bizLabel, baseRate, volMult, volumeNote, volumePct,
-        items: items.map(i => ({...i})),
-        grandTotal
-      };
+      lastCalc = { sqft, freq, isAfterHours, biz: selectedBiz, bizLabel, baseRate, volMult, volumeNote, volumePct, items: items.map(i => ({...i})), grandTotal: grandTotal };
     }
 
     function generateQuote() {
@@ -682,245 +459,232 @@
       const c = lastCalc;
       const d = new Date();
       const dateStr = (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear();
-      const validUntil = (d.getMonth()+1)+'/'+d.getDate()+30+'/'+d.getFullYear();
-      const qnum = 'CW-Q'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(Math.floor(Math.random()*900)+100);
+      const qnum = 'CW-Q'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
 
-      // Client data from form
       const cl = {
-        company: val('cCompany') || '_________________________',
-        contact: val('cContact') || '_________________________',
-        phone:   val('cPhone')   || '_________________________',
-        email:   val('cEmail')   || '_________________________',
-        address: val('cAddress') || '_________________________',
-        facility: val('cFacility') || '_________________________'
+        company:  val('cCompany')  || '_________________________',
+        location: val('cLocation') || '_________________________',
+        contact:  val('cContact')  || '_________________________',
+        phone:    val('cPhone')    || '_________________________',
+        address:  val('cAddress')  || '_________________________',
+        overview: val('cOverview') || 'Facility cleaning services as described in the scope of work below.'
       };
 
       const freqLabel = getFreqLabel(c.freq);
-      const timeLabel = c.isAfterHours ? 'After hours / Early morning' : 'During business hours';
-      const bizLong = getBizLabelLong(c.biz);
+      const freqShort = getFreqShort(c.freq);
+      const bizLong = getBizLong(c.biz);
+      const bizLabel = getBizLabel(c.biz);
+      const timeLabel = c.isAfterHours ? 'after hours / early morning' : 'during business hours';
 
-      let itemsHtml = '';
-      for (const item of c.items) {
-        itemsHtml += `<tr>
-          <td style="padding:8px;border-bottom:1px solid #e5e7eb;">${item.label}</td>
-          <td style="padding:8px;border-bottom:1px solid #e5e7eb;font-size:0.82rem;color:#6b7280;">${item.sub}</td>
-          <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:600;white-space:nowrap;">${item.price.replace('<span class="freq">','<span style="display:block;font-size:0.68rem;font-weight:400;color:#9ca3af;">').replace('</span>','</span>')}</td>
-        </tr>`;
+      // Build scope table
+      const scopeItems = getScopeItems();
+      let scopeHtml = '';
+      let currentCat = '';
+      for (const si of scopeItems) {
+        scopeHtml += `<tr><td style="padding:6px 8px;border-bottom:1px solid #f3f4f6;font-weight:500;">${si.task}</td><td style="padding:6px 8px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;">${si.freq}</td></tr>`;
       }
 
-      const isOneTime = c.items.some(i => i.type === 'onetime');
-      const totalLabel = isOneTime ? 'Estimated Total' : 'Estimated Monthly Total';
+      // Additional services
+      let addSvcHtml = '';
+      const addSvcs = [
+        { name: 'VCT Strip and Wax', price: '$0.30–$0.50 per square foot (quoted per project)' },
+        { name: 'Tile and Grout Cleaning', price: '$0.20–$0.35 per square foot' },
+        { name: 'Window Cleaning (interior)', price: '$4.00–$6.00 per panel' },
+      ];
+      for (const a of addSvcs) {
+        addSvcHtml += `<tr><td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;">• ${a.name}</td><td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;">${a.price}</td></tr>`;
+      }
+
+      // Line items for pricing table
+      let pricingHtml = '';
+      const planName = c.freq === 5 ? 'Busy Season Plan' : c.freq === 3 ? 'Standard Plan' : c.freq === 2 ? 'Light Plan' : 'Weekly Plan';
+      pricingHtml += `<tr><td style="padding:8px;border-bottom:1px solid #e5e7eb;">${planName}</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:center;">${freqShort}</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:600;">${formatPrice(c.grandTotal)}</td></tr>`;
+
+      for (const item of c.items) {
+        if (item.type === 'onetime') {
+          const extraName = item.label;
+          pricingHtml += `<tr><td style="padding:8px;border-bottom:1px solid #e5e7eb;color:#6b7280;">${extraName}</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:center;color:#6b7280;">As needed</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;color:#6b7280;">${item.price.replace('<span class="freq">','<span style="display:block;font-size:0.68rem;font-weight:400;color:#9ca3af;">').replace('</span>','</span>')}</td></tr>`;
+        }
+      }
+
+      const volumeRec = c.volumePct > 0 ? `A <strong>${c.volumePct}% volume discount</strong> has been applied to this pricing. ` : '';
 
       const win = window.open('', '_blank', 'width=850,height=1000,scrollbars=yes');
       win.document.write(`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Quote ${qnum} — CleanWorks Solutions</title>
+  <title>Cleaning Proposal — ${cl.company} | CleanWorks Solutions</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', Arial, sans-serif;
-      color: #1f2937;
-      padding: 40px;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+    body { font-family:'Inter',Arial,sans-serif; color:#1f2937; padding:40px; max-width:800px; margin:0 auto; line-height:1.6; -webkit-font-smoothing:antialiased; }
+    .top { text-align:center; padding-bottom:20px; border-bottom:3px solid #479202; margin-bottom:20px; }
+    .top h1 { font-size:1.5rem; font-weight:800; color:#111827; letter-spacing:-0.5px; }
+    .top h1 span { color:#479202; }
+    .top .sub { font-size:0.82rem; color:#6b7280; margin-top:4px; }
+    .top .sub strong { color:#1f2937; }
+    .meta-box {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 18px; background:#f9fafb; border-radius:10px; margin-bottom:20px;
     }
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 24px;
-      border-bottom: 3px solid #479202;
-      margin-bottom: 24px;
+    .meta-box .item { font-size:0.85rem; }
+    .meta-box .item .lbl { display:block; font-size:0.68rem; color:#9ca3af; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
+    .meta-box .item .val { font-weight:600; }
+    .client-info { margin-bottom:20px; }
+    .client-info table { width:100%; }
+    .client-info td { padding:4px 8px; font-size:0.85rem; vertical-align:top; }
+    .client-info td:first-child { color:#9ca3af; width:110px; font-weight:500; }
+    h2.section-title {
+      font-size:0.95rem; font-weight:700; color:#111827; margin-bottom:8px;
+      padding-bottom:6px; border-bottom:2px solid #479202;
     }
-    .top-bar .logo-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .top-bar .logo-group img { height: 48px; }
-    .top-bar .logo-group h1 { font-size: 1.3rem; font-weight: 800; color: #111827; }
-    .top-bar .logo-group h1 span { color: #479202; }
-    .top-bar .right {
-      text-align: right;
-      font-size: 0.82rem;
-      color: #6b7280;
-      line-height: 1.7;
-    }
-    .top-bar .right strong { color: #1f2937; }
-    .meta-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      padding: 14px 18px;
-      background: #f9fafb;
-      border-radius: 10px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .meta-row .box { font-size: 0.85rem; }
-    .meta-row .box .lbl { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-weight: 600; }
-    .meta-row .box .val { font-weight: 600; }
-    .client-box {
-      margin-bottom: 24px;
-      padding: 16px 18px;
-      background: #f9fafb;
-      border-radius: 10px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 24px;
-    }
-    .client-box .field { font-size: 0.82rem; }
-    .client-box .field .lbl { display: block; font-size: 0.68rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
-    .client-box .field .val { font-weight: 500; }
-    .client-box .field.full { grid-column: 1 / -1; }
-    h3.sec-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #111827;
-    }
-    .desc-text {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-bottom: 18px;
-      line-height: 1.7;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 18px;
-    }
-    th {
-      text-align: left;
-      padding: 8px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 2px solid #e5e7eb;
-    }
-    th:last-child { text-align: right; }
-    .total-box {
-      background: #f0f7eb;
-      padding: 14px 18px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-    }
-    .total-box .lbl { font-weight: 700; font-size: 1rem; }
-    .total-box .amt { font-size: 1.4rem; font-weight: 800; color: #479202; }
-    .terms-box {
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-    }
-    .terms-box h3 { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 600; }
-    .terms-box p { font-size: 0.8rem; color: #6b7280; line-height: 1.7; }
-    .terms-box p strong { color: #374151; }
-    .actions {
-      text-align: center;
-      margin-top: 28px;
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-    }
-    .actions button {
-      background: #479202; color: white; border: none;
-      padding: 12px 36px; border-radius: 8px;
-      font-size: 1rem; font-weight: 600; cursor: pointer;
-    }
-    .actions button:hover { background: #3a7a02; }
-    .actions .note { margin-top: 8px; font-size: 0.75rem; color: #9ca3af; }
-    @media print {
-      .actions { display: none; }
-      body { padding: 15px; }
-    }
+    h2.section-title.first { margin-top:0; }
+    p.body-text { font-size:0.85rem; color:#6b7280; margin-bottom:14px; line-height:1.7; }
+    table.scope { width:100%; border-collapse:collapse; margin-bottom:16px; }
+    table.scope th { text-align:left; padding:6px 8px; font-size:0.7rem; color:#9ca3af; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; border-bottom:2px solid #e5e7eb; }
+    table.scope th:last-child { text-align:right; }
+    .pricing-table { width:100%; border-collapse:collapse; margin-bottom:16px; }
+    .pricing-table th { text-align:left; padding:8px; font-size:0.7rem; color:#9ca3af; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; border-bottom:2px solid #e5e7eb; }
+    .pricing-table th:nth-child(2), .pricing-table th:last-child { text-align:center; }
+    .pricing-table th:last-child { text-align:right; }
+    .total-row td { padding:8px; font-weight:800; font-size:1rem; border-top:2px solid #479202; color:#479202; }
+    .total-row td:last-child { text-align:right; }
+    .add-svc { width:100%; border-collapse:collapse; margin-bottom:16px; }
+    .add-svc th { text-align:left; padding:5px 8px; font-size:0.7rem; color:#9ca3af; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; border-bottom:2px solid #e5e7eb; }
+    .add-svc th:last-child { text-align:right; }
+    .terms { margin-top:20px; }
+    .terms h3 { font-size:0.85rem; font-weight:700; color:#111827; margin-bottom:10px; padding-bottom:6px; border-bottom:2px solid #479202; }
+    .terms .clause { font-size:0.8rem; color:#6b7280; line-height:1.7; margin-bottom:10px; }
+    .terms .clause strong { color:#374151; }
+    .terms .clause em { color:#9ca3af; font-style:normal; }
+    .recommend { background:#f0f7eb; padding:16px 18px; border-radius:10px; margin:20px 0; }
+    .recommend h3 { font-size:0.85rem; font-weight:700; color:#479202; margin-bottom:6px; }
+    .recommend p { font-size:0.82rem; color:#6b7280; line-height:1.7; }
+    .accept { margin-top:24px; padding-top:20px; border-top:1px solid #e5e7eb; }
+    .accept h3 { font-size:0.85rem; font-weight:700; color:#111827; margin-bottom:12px; }
+    .accept table { width:100%; }
+    .accept td { padding:6px 12px; font-size:0.85rem; vertical-align:top; }
+    .accept td:first-child { color:#9ca3af; width:160px; }
+    .accept .sig-line { border-bottom:1px solid #111827; display:inline-block; min-width:250px; height:28px; }
+    .accept .date-line { border-bottom:1px solid #111827; display:inline-block; min-width:150px; height:28px; }
+    .actions { text-align:center; margin-top:28px; padding-top:20px; border-top:1px solid #e5e7eb; }
+    .actions button { background:#479202; color:white; border:none; padding:12px 36px; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; }
+    .actions button:hover { background:#3a7a02; }
+    .actions .note { margin-top:8px; font-size:0.75rem; color:#9ca3af; }
+    @media print { .actions { display:none; } body { padding:15px; } }
   </style>
 </head>
 <body>
 
-<div class="top-bar">
-  <div class="logo-group">
-    <img src="https://solutionscleanworks.github.io/cleanworks-site/logo.jpg" alt="CleanWorks">
-    <h1><span>Clean</span>Works Solutions</h1>
-  </div>
-  <div class="right">
-    <strong>CleanWorks Solutions LLC</strong><br>
-    Phoenix, AZ<br>
-    📞 (602) 516-6133<br>
-    ✉️ CleanWorks.solutions1@gmail.com
+<div class="top">
+  <h1><span>Clean</span>Works Solutions</h1>
+  <div class="sub">
+    <strong>CleanWorks Solutions LLC</strong> &nbsp;|&nbsp; P.O. Box 2418, Peoria, AZ 85380 &nbsp;|&nbsp; (602) 516-6133<br>
+    solutionscleanworks@gmail.com
   </div>
 </div>
 
-<div class="meta-row">
-  <div class="box"><span class="lbl">Quote #</span><span class="val">${qnum}</span></div>
-  <div class="box"><span class="lbl">Date</span><span class="val">${dateStr}</span></div>
-  <div class="box"><span class="lbl">Valid Until</span><span class="val">${validUntil}</span></div>
-  <div class="box"><span class="lbl">Status</span><span class="val">Estimate</span></div>
+<h1 style="font-size:1.3rem;font-weight:800;color:#111827;margin-bottom:14px;">JANITORIAL CLEANING PROPOSAL</h1>
+
+<div class="meta-box">
+  <div class="item"><span class="lbl">Prepared For</span><span class="val">${cl.company}</span></div>
+  <div class="item"><span class="lbl">Location</span><span class="val">${cl.location}</span></div>
+  <div class="item"><span class="lbl">Contact</span><span class="val">${cl.contact}</span></div>
+  <div class="item"><span class="lbl">Date</span><span class="val">${dateStr}</span></div>
 </div>
 
-<div class="client-box">
-  <div class="field"><span class="lbl">Company</span><span class="val">${cl.company}</span></div>
-  <div class="field"><span class="lbl">Contact</span><span class="val">${cl.contact}</span></div>
-  <div class="field"><span class="lbl">Phone</span><span class="val">${cl.phone}</span></div>
-  <div class="field"><span class="lbl">Email</span><span class="val">${cl.email}</span></div>
-  <div class="field full"><span class="lbl">Billing Address</span><span class="val">${cl.address}</span></div>
-  <div class="field full"><span class="lbl">Facility Address</span><span class="val">${cl.facility}</span></div>
+<div class="client-info">
+  <table>
+    <tr><td>Company:</td><td><strong>${cl.company}</strong></td></tr>
+    <tr><td>Location:</td><td>${cl.location}</td></tr>
+    <tr><td>Contact:</td><td>${cl.contact}</td></tr>
+    <tr><td>Phone:</td><td>${cl.phone}</td></tr>
+    <tr><td>Address:</td><td>${cl.address}</td></tr>
+  </table>
 </div>
 
-<h3 class="sec-title">Service Description</h3>
-<p class="desc-text">
-  ${bizLong} for a <strong>${c.sqft.toLocaleString()} sq ft</strong> facility located in the Phoenix metro area.
-  Service includes <strong>${freqLabel.toLowerCase()}</strong> cleaning
-  ${c.isAfterHours ? '<strong>after hours / early morning</strong>' : '<strong>during business hours</strong>'}
-  performed by a dedicated CleanWorks crew. Flat-rate pricing with full satisfaction guarantee.
-  ${c.volumePct > 0 ? 'A <strong>' + c.volumePct + '% volume discount</strong> has been applied.' : ''}
-  All supplies and equipment provided by CleanWorks.
-</p>
+<h2 class="section-title first">FACILITY OVERVIEW</h2>
+<p class="body-text">${cl.overview}</p>
 
-<table>
-  <tr>
-    <th style="width:38%;">Service</th>
-    <th style="width:38%;">Details</th>
-    <th style="width:24%;text-align:right;">Amount</th>
-  </tr>
-  ${itemsHtml}
+<h2 class="section-title">SCOPE OF WORK</h2>
+<table class="scope">
+  <tr><th style="width:70%;">Task</th><th style="width:30%;text-align:right;">Frequency</th></tr>
+  ${scopeHtml}
 </table>
 
-<div class="total-box">
-  <span class="lbl">${totalLabel}</span>
-  <span class="amt">${formatPrice(c.grandTotal)}${isOneTime ? '' : '/mo'}</span>
+<h2 class="section-title">PRICING</h2>
+<table class="pricing-table">
+  <tr><th>Service Plan</th><th style="text-align:center;">Frequency</th><th style="text-align:right;">Monthly Rate</th></tr>
+  ${pricingHtml}
+</table>
+
+<p class="body-text">${volumeRec}The ${planName.toLowerCase()} includes daily sweeping, mopping, trash removal, and surface cleaning each visit. ${c.freq >= 3 ? 'For VCT tile floors, a full auto-scrub is performed twice per week. Daily mopping with twice-weekly machine scrub is sufficient to maintain tile appearance without wearing down the finish prematurely.' : ''}</p>
+
+<h2 class="section-title">ADDITIONAL SERVICES (Billable Separately)</h2>
+<table class="add-svc">
+  <tr><th>Service</th><th style="text-align:right;">Pricing</th></tr>
+  ${addSvcHtml}
+</table>
+<p class="body-text" style="font-size:0.78rem;">The Client is responsible for providing consumable products (soap, paper goods, etc.).</p>
+
+<div class="terms">
+  <h3>TERMS AND CONDITIONS</h3>
+  <p class="clause" style="font-size:0.8rem;color:#6b7280;margin-bottom:12px;">This Agreement is made between <strong>CleanWorks Solutions LLC</strong> ("CleanWorks Solutions") and <strong>${cl.company}</strong> ("Client") for the provision of Cleaning Services. This document outlines the Scope of Work and defines the working relationship between the two parties. This Agreement becomes effective on the date the Client signs it and continues until the agreed-upon Termination Date.</p>
+
+  <p class="clause"><strong>1. Description of Services.</strong> Beginning on a mutually agreed-upon date, CleanWorks Solutions will provide Building Maintenance Services ("Services") for the Client. A full description of these services, including the frequency and specific tasks, can be found in the Scope of Work section of this document. Should the Client require additional services, CleanWorks Solutions will provide a quote upon request. The Scope of Work and pricing can be adjusted to meet service and budget needs. Additional services may be added as an addendum to this contract or as a separate contract, as agreed upon by both parties.</p>
+
+  <p class="clause"><strong>2. Scope of Work Limitations.</strong> CleanWorks Solutions will not be responsible for work beyond the scope outlined in this Agreement unless otherwise agreed in writing by both parties. Changes in store occupancy, floor layout, or flooring material should be communicated so we can provide an updated proposal. All changes to services must be agreed to in writing and must reference this Agreement. For questions or requests regarding additional services, please contact your CleanWorks Solutions Account Manager.</p>
+
+  <p class="clause"><strong>3. Payment for Services.</strong> Charges for the services provided by CleanWorks Solutions will be as follows: ${planName} (${freqShort}) at ${formatPrice(c.grandTotal)} per month.${c.isAfterHours ? ' After-hours premium applies.' : ''} Payment is due within 30 days upon receipt of the invoice. Services are billed monthly. The first month of service will be prorated. If the Client uses a third-party billing service, a $35 monthly service charge will be added to the invoice. Accounts not paid within 60 days are subject to a 3% monthly finance charge, not to exceed 10% per year.</p>
+
+  <p class="clause"><strong>4. Optional Services.</strong> CleanWorks Solutions offers the following optional services, billed separately from regular cleaning services: VCT Strip and Wax at $0.30–$0.50 per square foot; Tile and Grout Cleaning at $0.20–$0.35 per square foot; Window Cleaning (interior) at $4.00–$6.00 per panel. If additional services are added after the monthly invoice has been sent, the additional charge will be included in the following billing cycle. The Client is responsible for providing consumable products (soap, paper goods, etc.).</p>
+
+  <p class="clause"><strong>5. CleanWorks Solutions Responsibility.</strong> CleanWorks Solutions is responsible for salaries, wages, taxes, and insurance for cleaning staff; equipment costs and maintenance, employee uniforms, protective gear, and staff communication devices; chemicals and cleaning supplies required to fulfill services; and General Liability Insurance coverage. If payment is not received by the agreed due date, service charges will apply. Payments past 60 days will result in suspension of services. Payments past 90 days will result in collection actions and reporting to credit bureau agencies. Legal fees for recovery of payment will be borne by the Client. Monthly charges account for all recognized holidays and variations in service days; therefore, no monthly fee adjustments will be made.</p>
+
+  <p class="clause"><strong>6. Termination of Contract.</strong> Either party may terminate this contract with thirty (30) days' written notice. If the Client initiates termination, the final payment for 30 days of service will be due immediately following the notice. Services will continue as normal until the termination date if CleanWorks Solutions initiates termination. CleanWorks Solutions will return the building keys upon receipt of the final payment.</p>
+
+  <p class="clause"><strong>7. Holidays.</strong> Services will not be performed on the following Legal Holidays unless specifically requested by the Client: New Year's Day (January 1st); Memorial Day (Last Monday in May); Independence Day (July 4th); Labor Day (First Monday in September); Thanksgiving Day (Fourth Thursday in November); Christmas Day (December 25th).</p>
+
+  <p class="clause"><strong>8. Relationship of Parties and Employees.</strong> CleanWorks Solutions staff and Client staff will commit to mutually respectful interactions. Additional work services will be requested through the designated Account Manager, not directly to cleaning staff. CleanWorks Solutions staff will respond promptly to all work requests and concerns. The Client agrees not to hire CleanWorks Solutions employees for six (6) months following contract termination. A fee of seven (7) times the monthly salary of the team member applies if the Client wishes to hire a CleanWorks Solutions team member. CleanWorks Solutions staff are not considered employees of the Client and are not responsible for withholding Federal or State taxes. The Client will provide necessary resources for service performance, such as building access and access to supply areas.</p>
+
+  <p class="clause"><strong>9. Joint Management Responsibility.</strong> Both parties share responsibility for work management and oversight. Designated managers will meet regularly to review services, address questions, and prioritize work. CleanWorks Solutions will schedule quarterly reviews to ensure clear communication and satisfaction with services. Changes to the scope of work must be communicated to the CleanWorks Solutions Account Manager for an adjusted proposal.</p>
+
+  <p class="clause"><strong>10. Confidentiality.</strong> Both parties agree to maintain the confidentiality of all proprietary or sensitive information shared during the term of this agreement. This includes but is not limited to business practices, client information, and operational procedures. Neither party will disclose such information to third parties without written consent from the other party unless required by law.</p>
+
+  <p class="clause"><strong>11. Liability and Indemnification.</strong> CleanWorks Solutions will carry general liability insurance and agrees to indemnify and hold the Client harmless from any claims, damages, or lawsuits (including legal fees) arising out of injuries, property damage, or any negligence by CleanWorks Solutions' employees during the performance of their duties, except where such claims arise from the Client's negligence. The Client agrees to indemnify and hold CleanWorks Solutions harmless from any claims, damages, or lawsuits (including legal fees) arising from the Client's negligence or failure to adhere to safety or operational guidelines.</p>
+
+  <p class="clause"><strong>12. Dispute Resolution.</strong> In the event of any disputes arising from or relating to this Agreement, both parties agree to make a good faith effort to resolve the issue through informal discussions. If the dispute cannot be resolved within 30 days, both parties agree to submit the dispute to mediation before pursuing litigation.</p>
+
+  <p class="clause"><strong>13. Force Majeure.</strong> Neither party will be held responsible for any delays or failures in performance resulting from events beyond their reasonable control, including but not limited to natural disasters, pandemics, government actions, or labor strikes. Either party must notify the other promptly in writing of any force majeure event that could impact the delivery of services.</p>
+
+  <p class="clause"><strong>14. Safety and Compliance.</strong> CleanWorks Solutions agrees to comply with all applicable federal, state, and local laws and regulations, including health and safety guidelines. The Client agrees to provide a safe working environment and promptly report any hazardous conditions that may impact the performance of services.</p>
+
+  <p class="clause"><strong>15. Amendments.</strong> This Agreement may be amended only by written consent of both parties. Any modifications to the scope of services, fees, or other terms must be in writing and signed by both parties to become effective.</p>
+
+  <p class="clause"><strong>16. Severability.</strong> If any provision of this Agreement is found to be invalid or unenforceable by a court of competent jurisdiction, such invalidity shall not affect the remaining provisions of this Agreement, which will continue to be enforceable in full.</p>
+
+  <p class="clause"><strong>17. Entire Agreement.</strong> This Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, understandings, and negotiations, whether written or oral, regarding the subject matter herein.</p>
 </div>
 
-<div class="terms-box">
-  <h3>Terms &amp; Conditions</h3>
-  <p>
-    <strong>1. Pricing.</strong> This estimate is based on the information provided above and is valid for 30 days from the date of this quote. Final pricing is confirmed after a complimentary on-site walkthrough of the facility. Quotes for large spaces (10,000+ sq ft) may require custom pricing.<br><br>
+<div class="recommend">
+  <h3>📋 Recommendation</h3>
+  <p>For a ${c.sqft.toLocaleString()} sq ft ${bizLabel.toLowerCase()} facility, we recommend starting with the ${planName} (${freqShort} at ${formatPrice(c.grandTotal)}/month). ${c.freq >= 3 ? 'Our approach maintains appearance while protecting floor finishes. Daily mopping with scheduled machine scrubbing extends floor life while keeping a consistent visual standard.' : ''} When business needs change, the plan can be upgraded to meet demand.</p>
+</div>
 
-    <strong>2. Contract.</strong> Services are provided under a written flat-rate service agreement. The agreement details the scope of work, frequency, pricing, and duration. Standard contract term is 12 months. Month-to-month options are available at a 15% surcharge.<br><br>
-
-    <strong>3. Payments.</strong> Invoices are sent monthly and are due net 30. Late payments are subject to a 1.5% monthly finance charge. We accept checks, ACH transfers, and credit cards (3% processing fee applies to credit cards).<br><br>
-
-    <strong>4. Cancellation.</strong> Either party may terminate the agreement with 30 days written notice. Early termination within the first 6 months of a 12-month contract is subject to a cancellation fee equal to one month of service.<br><br>
-
-    <strong>5. Service Scope.</strong> Standard daily cleaning includes: trash removal, vacuuming all carpeted areas, mopping all hard floors with disinfectant, sanitizing all restrooms, cleaning and restocking restroom supplies, wiping high-touch surfaces, cleaning breakroom/kitchen counters and sinks, and spot-cleaning glass. Specialty services (strip & wax, carpet extraction, window cleaning, deep cleaning) are quoted separately and performed on a scheduled basis.<br><br>
-
-    <strong>6. Satisfaction Guarantee.</strong> If any area does not meet your standards, contact us within 24 hours and we will re-clean it at no additional charge. No argument, no excuses.<br><br>
-
-    <strong>7. Price Adjustments.</strong> Pricing is locked for the first 12 months of service. Thereafter, prices may be adjusted annually based on changes in labor costs, insurance premiums, and supply costs. Any adjustment will be communicated at least 60 days in advance.<br><br>
-
-    <strong>8. Insurance.</strong> CleanWorks Solutions LLC carries general liability insurance. A certificate of insurance is available upon request.<br><br>
-
-    <strong>9. Access &amp; Security.</strong> Client agrees to provide reasonable access to the facility during scheduled cleaning times. CleanWorks will maintain the confidentiality of any access codes, keys, or security information provided.<br><br>
-
-    <strong>10. Governing Law.</strong> This agreement is governed by the laws of the State of Arizona.
-  </p>
+<div class="accept">
+  <h3>ACCEPTANCE</h3>
+  <table>
+    <tr><td>Preferred Start Date:</td><td><span class="date-line"></span></td></tr>
+    <tr><td colspan="2" style="padding-top:12px;"><strong>${cl.company}</strong></td></tr>
+    <tr><td>Representative Name:</td><td>${cl.contact}</td></tr>
+    <tr><td>Signature:</td><td><span class="sig-line"></span></td></tr>
+    <tr><td>Date:</td><td><span class="date-line"></span></td></tr>
+    <tr><td colspan="2" style="padding-top:12px;"><strong>CleanWorks Solutions LLC</strong></td></tr>
+    <tr><td>Representative Name:</td><td>Nima Hosseini</td></tr>
+    <tr><td>Signature:</td><td><span class="sig-line"></span></td></tr>
+    <tr><td>Date:</td><td><span class="date-line"></span></td></tr>
+  </table>
 </div>
 
 <div class="actions">
@@ -937,15 +701,11 @@
       const editor = document.getElementById('rateEditor');
       const toggle = document.getElementById('editToggle');
       if (editor.classList.contains('open')) {
-        editor.classList.remove('open');
-        toggle.textContent = 'Edit';
-        calculate();
+        editor.classList.remove('open'); toggle.textContent = 'Edit'; calculate();
       } else {
-        editor.classList.add('open');
-        toggle.textContent = 'Done';
+        editor.classList.add('open'); toggle.textContent = 'Done';
       }
     }
-
     document.getElementById('sqft').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') calculate();
     });
